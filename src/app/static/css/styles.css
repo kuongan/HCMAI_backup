@@ -1,0 +1,553 @@
+/* General Styles */
+body, html {
+    overflow-y: auto;
+    height: 100%;
+    width: 100%;
+    margin:0px;
+    padding:0px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+
+}
+
+/* Container */
+.container {
+    display: flex;
+    height: 100%;
+}
+
+/* Topbar */
+.topbar {
+    display: flex;
+    height: 8%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1CAEED;
+    color: white;
+    padding: 10px 20px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.title h1 {
+    margin: 0;
+    font-weight: bold;
+    color: white;
+    flex: 1; 
+}
+
+.task-selection {
+    display: flex;
+    gap: 20px;
+    justify-content: center; 
+    flex: 1; 
+}
+
+.task-btn {
+    background-color: #1CAEED; 
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.task-btn:hover {
+    background-color: #ffffff; 
+    color: #1CAEED;
+}
+
+.search-bar {
+    flex: 1; 
+    max-width: 300px; 
+    margin-left: auto;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    font-size: 16px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+    box-sizing: border-box;
+}
+
+/* Main Content */
+.main-content {
+    display: flex;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 18%;
+    background-color: #f4f4f4;
+    padding:10px;
+    position: fixed;
+    top: 8%; 
+    height: 92%; 
+    overflow-y: auto;
+}
+
+#upload-btn,
+#enter-btn,
+
+.sidebar label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.sidebar select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 15px; 
+    border: 1px solid #ccc;
+    border-radius: 20px;
+}
+
+.text-query-container {
+    width: 100%; /* Ensure the container takes up the full width of the sidebar */
+    margin-bottom: 15px; /* Add space below the container */
+    box-sizing: border-box;
+}
+
+#text-query {
+    width: 100%; /* Make sure the textarea fits the container */
+    height: 100px; /* Set a specific height */
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Include padding in the element's width and height */
+    resize: none; /* Prevent resizing */
+    overflow-y: auto; /* Add a scrollbar if the content exceeds the height */
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    
+}
+
+#upload-btn {
+    border-radius: 10px;
+    width: 35%;
+    background-color: #1C6FED;
+    color:#ffffff;
+}
+#upload-btn:hover { 
+    background-color: #1a62ce;
+}
+#enter-btn {
+    border-radius: 10px;
+    width: 60%; 
+    background-color: #1C6FED;
+    color:#ffffff;
+}
+
+#enter-btn:hover { 
+    background-color: #1a62ce;
+}
+
+/* Container for Visualize Section */
+/* Title */
+.visualize-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    display: block;
+    width: 100%;
+}
+
+.visualize-options {
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.visualize-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.visualize-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.visualize-item {
+    display: flex;
+    align-items: center;
+}
+
+.custom-checkbox {
+    margin: 10px;
+    cursor: pointer;
+}
+
+.tag-label {
+    cursor: pointer;
+    font-size: 14px; 
+    margin: 10px;
+    line-height: 1.2; 
+}
+
+.rerank-btn {
+    margin-right: 15px;
+    padding: 6px 12px;
+    height: 100%;
+    width: 100%;
+    border: 5px;
+    align-content: 1px;
+    background-color: #1C6FED;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.rerank-btn:hover {
+    background-color: #1a62ce;
+}
+
+/* Filter Section */
+.filter input[type="text"],
+.filter input[type="number"] {
+    width: calc(33.33% - 10px); /* Adjust width for three elements on one line */
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 8px; /* Adjusted padding for better input size */
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+}
+
+.object .object-enter {
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the right */
+    height: 100%;
+    width: 100%;
+    margin:auto;
+}
+
+button#enter-od-btn {
+    padding: 6px 20px;  /* Increase padding to make the button larger */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px; /* Increase font size */
+}
+
+button#enter-od-btn:hover {
+    background-color: #0056b3;
+}
+
+
+.DATE {
+  height: 35px;
+  margin-bottom: 10px;
+  background: grey;
+  display: flex; /* Add this to use align-items */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+}
+
+#DATE{
+  margin-top: 10px;
+}
+
+#color {
+    margin-left: 10px;
+    flex: 1;
+}
+
+
+.palette {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    gap: 5px;
+}
+
+.palette div {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 7px;
+}
+
+.black { background-color: black; }
+.blue { background-color: blue; }
+.brown { background-color: brown; }
+.green { background-color: green; }
+.grey { background-color: grey; }
+.orange { background-color: orange; }
+.pink { background-color: pink; }
+.purple { background-color: purple; }
+.red { background-color: red; }
+.white { background-color: white; color: black; }
+.yellow { background-color: yellow; color: black; }
+
+/* Scene container */
+.scene {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    position: relative;
+}
+
+.font-large {
+    font-size: 9px;
+    color: #d9534f;
+    margin-bottom: 10px;
+}
+
+/* Canvas to hold the boxes */
+#canvasContainer {
+    position: relative;
+    width: 252px;
+    height: 154px;
+    border: 1px solid #000;
+    background-color: #f9f9f9;
+    overflow: hidden; /* Prevent boxes from moving out of canvas */
+}
+
+/* Trash icon for clearing the canvas */
+.trash-icon {
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 24px;
+    color: #d9534f;
+}
+
+.trash-icon:hover {
+    color: #c9302c;
+}
+
+/* Draggable boxes */
+.draggable-box {
+    position: absolute;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}
+
+/* Grid Lines */
+.grid-line {
+    position: absolute;
+    background-color: #D0D0D0;
+}
+
+.vertical-line {
+    width: 1px;
+}
+
+.horizontal-line {
+    height: 1px;
+}
+
+.OCR_ASR {
+    margin-top: 10px;
+}
+
+.OCR_ASR #OCR_query {
+    color: darkblue;
+    margin-top: 0px;
+    width: 100%;
+}
+.OCR_ASR #ASR_query {
+    color: darkblue;
+    margin-top: 0px;
+    width: 100%;
+}
+
+.rerank-btn{
+  width: 100%;
+  padding: 6px;
+  margin-left: 0px;
+  margin-right: 0ps;
+}
+
+#OCR_query{
+    resize: none;
+}
+
+/* Task Grid */
+/* Grid Container */
+.image-grid {
+    overflow-y:auto;
+    display: grid;
+    width: 80%; /* Kích thước của grid */
+    background-color: #f4f4f4;
+    position: fixed;
+    top: 8%;
+    gap: 1%;
+    left: 19.5%; 
+    white-space: normal;
+    height: 92%; 
+    grid-template-columns: repeat(6, 1fr); /* Tạo 6 cột với kích thước đều nhau */
+    grid-gap: 1%; /* Khoảng cách giữa các cột là 1% */
+    grid-auto-rows: calc(20% - 1%);
+}
+
+/* Grid Items */
+.grid-item {
+    position: relative; /* Để các phần tử con được định vị chính xác */
+    width: 100%; /* Đảm bảo rằng item chiếm đủ chiều rộng cột */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center; /* Căn giữa nội dung bên trong */
+    align-items: center; /* Căn giữa nội dung bên trong */
+}
+
+
+#image-grid-cluster {
+    display: grid;
+    width: 80%;
+    background-color: #f4f4f4;
+    position: fixed;
+    top: 8%;
+    left: 19.5%; 
+    height: 92%;
+    grid-template-rows: repeat(3, 1fr); /* 4 hàng */
+    overflow-y: auto;
+    gap: 0.3%;
+}
+
+
+.video_group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap; 
+    overflow-x: auto; 
+    gap: 1%;
+}
+
+.cluster-group {
+    display: flex;
+    gap: 0.005%; /* Khoảng cách giữa các phần tử */
+}
+
+.cluster-item {
+    position: relative;
+    width: 256px; /* Đặt chiều rộng cụ thể để các phần tử không co lại */
+    height: 128px; /* Chiều cao cố định */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cluster-item img{
+    width: 256px;
+    height: auto;
+}
+
+/* Submit Button */
+.submit-button {
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
+    padding: 1% 1%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Color Buttons Container */
+.color-buttons {
+    position: absolute;
+    bottom: 1%;
+    top: 82.5%;
+    width: 25%;
+    height: 25%;
+    left: 1%;
+    display: flex;
+    gap: 5%;
+}
+
+/* Individual Color Buttons */
+.color-button {
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+.color-button.yellow {
+    background-color: yellow;
+}
+
+.color-button.red {
+    background-color: red;
+}
+
+.color-button.blue {
+    background-color: blue;
+}
+
+/* Image Overlay */
+.image-overlay {
+    position: absolute;
+    bottom: 1%;
+    top: 7%;
+    width: 25%;
+    height: 25%;
+    left: 1%;
+    margin-right: 5%;
+    display: flex;
+    gap: 5%;
+    color: black;
+    font-weight: bold;
+    text-shadow: 
+        -1px -1px 0 white,  
+         1px -1px 0 white,
+        -1px  1px 0 white,
+         1px  1px 0 white;
+}
+
+/* Frame and Video ID Labels */
+.frame-id-label, .video-id-label {
+    display: none; /* Display labels inline */
+}
+
