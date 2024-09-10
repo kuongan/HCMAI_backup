@@ -1,8 +1,12 @@
-from fastapi import APIRouter, requests
+from typing import List, Dict
+from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-import glob
-import os
+from src.domain.information_extraction.feature_extractor_blip import FeatureExtractorBLIP 
+from src.domain.search_engine.vector_database import FaissDatabase
+from src.common.query_processing import Translation, Text_Preprocessing
+from langdetect import detect
+from deep_translator import GoogleTranslator
 
 # Define the router
 side_bars = APIRouter()
@@ -12,35 +16,55 @@ class SidebarData(BaseModel):
     model: str
     textQuery: str
 
+# Initialize the components
 URL = []
+faiss = FaissDatabase()
+faiss.load_index('blip', r'src\app\static\data\faiss\blip.index')
+blip = FeatureExtractorBLIP()
+# Initialize translation and text preprocessing
+trans = Translation(from_lang='vi', to_lang='en', mode='google')
+text_preprocessor = Text_Preprocessing()
+
+def remove_distances(result: List[Dict]) -> List[Dict]:
+    """Remove 'distances' field from each dictionary in the result list."""
+    cleaned_result = []
+    for item in result:
+        cleaned_item = {k: v for k, v in item.items() if k != 'distance'}
+        cleaned_result.append(cleaned_item)
+    return cleaned_result
 
 @side_bars.post('/')
 def handle_sidebar_data(data: SidebarData):
     # You can access the data via the `data` variable
     print(f"Model: {data.model}")
     print(f"text_query: {data.textQuery}")
-    # Return a response
-    data_list = glob.glob(os.path.join('src', 'app', 'static', 'image', '**', '**', '*.jpg'), recursive=True)
-    # List to store dictionaries
-    result = []
 
-    for file_path in data_list:
-        # Extract the filename from the path (e.g., '597_L01_V001_start.jpg')
-        filename = os.path.basename(file_path)
-        
-        # Split the filename by underscores and remove the '.jpg' extension
-        parts = filename.replace('.jpg', '').split('_')
-        
-        # Create the dictionary if the format is correct (e.g., 597_L01_V001_start)
-        if len(parts) == 4:
-            frame_id = parts[0]   # '597'
-            video_id = f"{parts[1]}_{parts[2]}"  # 'L01_V001'
-            position = parts[3]   # 'start'
+    # Detect the language of the text
+    detected_lang = detect(data.textQuery)
+    print(f"Detected language: {detected_lang}")
 
-            # Add the extracted information into the dictionary
-            result.append({
-                'frame_id': frame_id,
-                'video_id': video_id,
-                'position': position
-            })
+    # Translate if the detected language is Vietnamese
+    if detected_lang == 'vi':
+        print("Translating from Vietnamese to English...")
+        translated_text = GoogleTranslator(source='vi', target='en').translate(data.textQuery)
+        print(f"Translated text: {translated_text}")
+    else:
+        # If not Vietnamese, use the original text
+        translated_text = data.textQuery
+
+    # Preprocess the text
+    preprocessed_text = text_preprocessor(translated_text)
+    print(f"Preprocessed text: {preprocessed_text}")
+
+    # Handle the query based on the model
+    if data.model == 'Blip':
+        query = preprocessed_text
+        vector = blip.embed_query(query)
+        result = faiss.search('blip', vector, 500)
+        # Remove 'distances' from each dictionary in the result
+        result = remove_distances(result)
+    else:
+        result = {"error": "Invalid model"}
+
+    print(result)
     return JSONResponse(content={"data": result})

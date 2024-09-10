@@ -1,0 +1,33 @@
+<div class="sidebar">
+    <select id="model-select">
+      <option value="Clip">Clip</option>
+      <option value="Blip">Blip</option>
+      <option value="Beit3">Beit3</option>
+    </select>
+    <div class="text-query-container">
+      <label for="text-query">Text Query</label>
+      <textarea id="text-query" rows="4" cols="50"></textarea>
+    </div>
+    
+    <div class="button-group">
+      <button id="upload-btn">IMAGE</button>
+      <button id="enter-btn">ENTER</button>
+    </div>
+  
+    <div class="visualize-right">
+      <button class="rerank-btn">Rerank</button>
+    </div>
+  
+    <div class="OCR_ASR">
+        <label id="ORC_text"> OCR </label>
+        <textarea id="OCR_query" cols="50" rows="2"></textarea>
+      
+        <label id="ASR_text"> ASR </label>
+        <textarea id="ASR_query" cols="50" rows="2"></textarea>
+    </div>
+      
+    {% include 'components/sidebar_filter.html' %}
+  </div>  
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>

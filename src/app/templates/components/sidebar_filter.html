@@ -1,0 +1,83 @@
+
+<div class="filter">
+    <div class="object">
+        <label for="object-class">Filter</label>
+        <input type="text" id="object-class" placeholder="Object Class" onkeyup="handleKeyUp(event)">
+        <div id="suggestions" class="dropdown-content"></div>
+        <input type="number" id="object-class-min" placeholder="Min" style="width: 25%;">
+        <input type="number" id="object-class-max" placeholder="Max" style="width: 25%;">
+        <div class="object-enter">
+            <button id="enter-od-btn">enter</button>
+        </div>
+    </div>
+
+    
+    <label id="DATE">DATE</label>
+    <label style = "margin-top: 5px">
+        Start day:
+    </label>
+    
+    <input type="date" id="min" value="2023-01-01" placeholder="Min"
+    style="width: 65%">
+    <label style="margin-top: 5px">
+        End day:
+    </label>
+    <input type="date" id="max" value="2024-06-01" placeholder="Max"
+    style="width: 65%">
+    
+
+
+    <!-- Color Grid Section -->
+    <div class="color-grid-section">
+        <!-- Palette for colors -->
+        <h3>Color</h3>
+        <div id="palette" class="palette">
+            <div class="black" data-color="black">BLACK</div>
+            <div class="blue" data-color="blue">BLUE</div>
+            <div class="brown" data-color="brown">BROWN</div>
+            <div class="green" data-color="green">GREEN</div>
+            <div class="grey" data-color="grey">GREY</div>
+            <div class="orange" data-color="orange">ORANGE</div>
+            <div class="pink" data-color="pink">PINK</div>
+            <div class="purple" data-color="purple">PURPLE</div>
+            <div class="red" data-color="red">RED</div>
+            <div class="white" data-color="white">WHITE</div>
+            <div class="yellow" data-color="yellow">YELLOW</div>
+        </div>
+
+        <!-- Canvas container for dropping colors -->
+        <div class="scene" id="canvasTab">
+            <div id="description_objects0">
+                <div class="font-large font-bold">
+                    <i id="sceneDes" class="fa fa-hourglass-start fa-1x"></i>
+                    Colors of the Scene
+                </div>
+            </div>
+            <div id="canvasContainer"></div>
+            <div class="trash-icon" id="trashIcon">
+                🗑 <!-- Trash icon to clear the canvas -->
+            </div>
+        </div>
+    </div>  
+
+    <div class="visualize-options">
+    <label class="visualize-title" style = "margin-top: 10px">Visualize</label>
+    <div class="visualize-content">
+        <div class="visualize-left">
+        <div class="visualize-item">
+            <input type="checkbox" id="frame_id" class="custom-checkbox">
+            <label for="frame_id" class="tag-label">Frame_id</label>
+        </div>
+        <div class="visualize-item">
+            <input type="checkbox" id="video_id" class="custom-checkbox">
+            <label for="video_id" class="tag-label">Video_id</label>
+        </div>
+        <div class="visualize-item">
+            <input type="checkbox" id="cluster" class="custom-checkbox">
+            <label for="cluster" class="tag-label">Cluster</label>
+        </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>

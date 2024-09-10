@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STRIVERS - Know-item Task</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Topbar -->
+        {% include 'components/topbar.html' %}
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            {% include 'components/sidebar.html' %}
+            
+            <!-- Task Grid -->
+            {% include 'components/taskgrid.html' %}
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script type="module" src="{{ url_for('static', path='js/sidebar.js') }}"></script>
+<script type="module" src="{{ url_for('static', path='js/topbar.js') }}"></script>
+</html>
