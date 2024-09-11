@@ -106,8 +106,6 @@ class FeatureExtractorBLIP(FeatureExtractor):
             print(f"Error processing query '{query}': {e}")
             return None
 
-
-
     def embed_documents(
         self,
         documents: list[str],

@@ -2,7 +2,7 @@ from typing import List, Dict
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from src.domain.information_extraction.feature_extractor_blip import FeatureExtractorBLIP 
+from src.domain.information_extraction.feature_extractor import clip  
 from src.domain.search_engine.vector_database import FaissDatabase
 from src.common.query_processing import Translation, Text_Preprocessing
 from langdetect import detect
@@ -19,8 +19,8 @@ class SidebarData(BaseModel):
 # Initialize the components
 URL = []
 faiss = FaissDatabase()
-faiss.load_index('blip', r'src\app\static\data\faiss\blip.index')
-blip = FeatureExtractorBLIP()
+faiss.load_index('clip', r'src\app\static\data\faiss\clip.index')
+
 # Initialize translation and text preprocessing
 trans = Translation(from_lang='vi', to_lang='en', mode='google')
 text_preprocessor = Text_Preprocessing()
@@ -57,10 +57,10 @@ def handle_sidebar_data(data: SidebarData):
     print(f"Preprocessed text: {preprocessed_text}")
 
     # Handle the query based on the model
-    if data.model == 'Blip':
+    if data.model == 'Clip':
         query = preprocessed_text
-        vector = blip.embed_query(query)
-        result = faiss.search('blip', vector, 500)
+        vector = clip.embed_query(query)
+        result = faiss.search('clip', vector, 500)
         # Remove 'distances' from each dictionary in the result
         result = remove_distances(result)
     else:

@@ -8,6 +8,7 @@ from src.app.api.api_router.date_filter import router as date_router
 from src.app.api.api_router.text_query import side_bars
 from src.app.api.api_router.search import search_api
 from src.app.api.api_router.color_search import router as color_router
+from src.app.api.api_router.object import router as od_router
 # Define the base directory for the app folder
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -29,18 +30,13 @@ async def home(request: Request):
     """Render the homepage with template."""
     return templates.TemplateResponse("index.html", {"request": request})
 # Include the router for image routes
-app.include_router(side_bars, prefix="/side-bar")
-
-# Include the router for search routes
-app.include_router(search_api, prefix="/search")
-
 app.include_router(date_router)
-# Include the router for image routes
-app.include_router(side_bars, prefix="/side-bar")
-
-# Include the router for search routes
-app.include_router(search_api, prefix="/search")
 app.include_router(color_router)
+app.include_router(od_router)
+app.include_router(side_bars, prefix="/side-bar")
+app.include_router(search_api, prefix="/search")
+
+
 if __name__ == "__main__":
     # Run the FastAPI application using uvicorn with auto-reload enabled
     import uvicorn
