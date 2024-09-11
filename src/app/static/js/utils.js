@@ -1,3 +1,5 @@
+import {handleExpandClick} from './expand_btn.js'
+
 export function get_url(frame_id, video_id, position) {
     const name = frame_id + "_" + video_id + "_" + position + ".jpg";
     const video = video_id.split("_")[0];
@@ -7,6 +9,9 @@ export function get_url(frame_id, video_id, position) {
     
 export function updateImageGrid(imageData) {
     const grid = document.getElementById('image-grid');
+    const frameIdCheckbox = document.getElementById('frame_id');
+    const videoIdCheckbox = document.getElementById('video_id');
+    const clusterCheckbox = document.getElementById('cluster');
     grid.innerHTML = ''; 
 
     imageData.forEach(data => {
@@ -21,7 +26,7 @@ export function updateImageGrid(imageData) {
                 <span class="video-id-label">${data.videoId}</span>
             </div>
             <div class="color-buttons">
-                <button class="color-button yellow"></button>
+                <input type='checkbox' class="color-button yellow">
                 <button class="color-button red"></button>
                 <button class="color-button blue"></button>
             </div>
@@ -58,7 +63,7 @@ export function updateImageGrid(imageData) {
                     <span class="video-id-label">${data.videoId}</span>
                 </div>
                 <div class="color-buttons">
-                    <button class="color-button yellow"></button>
+                    <input type='checkbox' class="color-button yellow">
                     <button class="color-button red"></button>
                     <button class="color-button blue"></button>
                 </div>
@@ -72,7 +77,10 @@ export function updateImageGrid(imageData) {
         groupLabel.appendChild(clusterGroup)
         cluster.appendChild(groupLabel);
     }
+    updateImageOverlay(frameIdCheckbox.checked, videoIdCheckbox.checked, clusterCheckbox.checked)
+    handleExpandClick();
 }
+
 export function updateImageOverlay(frameIdChecked, videoIdChecked, clusterChecked) {
     const grid = document.getElementById('image-grid');
     const cluster = document.getElementById('image-grid-cluster');

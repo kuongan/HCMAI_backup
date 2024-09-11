@@ -4,6 +4,8 @@ import {updateImageOverlay, updateImageGrid, get_url} from './utils.js';
 import {handleKeyUp} from './object.js';
 import { sendAllBoxesToBackend, initializeCanvas , drawGrid} from './color.js';
 import {searchOCR, searchASR} from './OcrAsr.js'
+import { handleRerankButtonClick} from './rerank.js';
+
 document.addEventListener("DOMContentLoaded", function() {
     const enterButton = document.getElementById('enter-btn');
     const frameIdCheckbox = document.getElementById('frame_id');
@@ -20,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const enterocr = document.getElementById('enter-ocr')
     const enterasr = document.getElementById('enter-asr')
     console.log("ocrText",ocrText, "asrText", asrText, "enterocr", enterocr)
+    const rerankButtons = document.querySelectorAll('.rerank-btn');
     let currentChain = "";  // Store the selected hierarchical path
     initializeCanvas();
     // Attach event listener for hierarchical search
@@ -161,6 +164,11 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("Clearing the canvas");
         $("#canvasContainer").empty();
         drawGrid(252 / 7, 154 / 7);
+    });
+
+    // Gán sự kiện click cho tất cả các nút rerank
+    rerankButtons.forEach(function(button) {
+        button.addEventListener('click', handleRerankButtonClick);
     });
     // Initial call to update overlay based on initial checkbox states
     updateImageOverlay(frameIdCheckbox, videoIdCheckbox, clusterCheckbox);
