@@ -19,12 +19,19 @@
     </div>
   
     <div class="OCR_ASR">
-        <label id="ORC_text"> OCR </label>
-        <textarea id="OCR_query" cols="50" rows="2"></textarea>
-      
-        <label id="ASR_text"> ASR </label>
-        <textarea id="ASR_query" cols="50" rows="2"></textarea>
-    </div>
+      <div class="ocr-asr-group">
+          <label for="ocr">OCR</label>
+          <textarea id="ocr" rows="2"></textarea>
+          <button id='enter-ocr' type="button">Enter</button>
+      </div>
+      <div class="ocr-asr-group">
+          <label for="asr">ASR</label>
+          <textarea id="asr" rows="2"></textarea>
+          <button id='enter-asr' type="button">Enter</button>
+      </div>
+  </div>
+  
+  
       
     {% include 'components/sidebar_filter.html' %}
   </div>  

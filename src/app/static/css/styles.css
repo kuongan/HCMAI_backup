@@ -229,23 +229,30 @@ body, html {
 }
 
 /* Filter Section */
-.filter input[type="text"],
-.filter input[type="number"] {
-    width: calc(33.33% - 10px); /* Adjust width for three elements on one line */
+.filter input[type="text"]{
+    width: calc(50% - 10px); 
     display: inline-block;
     box-sizing: border-box;
-    padding: 8px; /* Adjusted padding for better input size */
-    border-radius: 4px;
+    padding: 8px; 
+    border-radius: 8px;
     border: 1px solid #ccc;
-    margin-right: 5px;
+}
+
+
+.filter input[type="number"] {
+    width: calc(25% -5px); 
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 8px; 
+    border-radius: 8px;
+    border: 1px solid #ccc;
 }
 
 .object .object-enter {
     display: flex;
-    justify-content: flex-end; /* Aligns the button to the right */
+    justify-content: flex-end;
     height: 100%;
     width: 100%;
-    margin:auto;
 }
 .dropdown-content {
     display: none;
@@ -277,14 +284,14 @@ body, html {
     background-color: #ddd;
 }
 button#enter-od-btn {
-    padding: 6px 20px;  /* Increase padding to make the button larger */
+    padding: 6px 30px;  
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     margin-top: 10px;
-    font-size: 16px; /* Increase font size */
+    font-size: 16px; 
 }
 
 button#enter-od-btn:hover {
@@ -296,14 +303,12 @@ button#enter-od-btn:hover {
   height: 35px;
   margin-bottom: 10px;
   background: grey;
-  display: flex; /* Add this to use align-items */
-  align-items: center; /* Center items vertically */
-  justify-content: center; /* Center items horizontally */
+  width: 100%;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
 }
 
-#DATE{
-  margin-top: 10px;
-}
 
 #color {
     margin-left: 10px;
@@ -408,26 +413,49 @@ button#enter-od-btn:hover {
     margin-top: 10px;
 }
 
-.OCR_ASR #OCR_query {
-    color: darkblue;
-    margin-top: 0px;
-    width: 100%;
-}
-.OCR_ASR #ASR_query {
-    color: darkblue;
-    margin-top: 0px;
-    width: 100%;
+.ocr-asr-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    width: 100%; 
 }
 
-.rerank-btn{
-  width: 100%;
-  padding: 6px;
-  margin-left: 0px;
-  margin-right: 0ps;
+.ocr-asr-group label {
+    flex: 0 0 auto;
+    margin-right: 10px;
+    font-weight: bold;
 }
 
-#OCR_query{
+.ocr-asr-group textarea {
+    width: 75%; 
+    color: darkblue;
+    margin: 0;
     resize: none;
+    border-radius: 10px;
+}
+.ocr-asr-group button {
+    background-color: #007bff; 
+    color: white; 
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    width: 20%; 
+    margin-left: 10px;
+    border-radius: 10px;
+    border: 1px solid #000000;
+}
+
+.ocr-asr-group button:hover {
+    background-color: #0056b3; 
+}
+
+
+.rerank-btn {
+    width: 100%;
+    padding: 6px;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 /* Task Grid */
@@ -443,22 +471,22 @@ button#enter-od-btn:hover {
     left: 19.5%; 
     white-space: normal;
     height: 92%; 
-    grid-template-columns: repeat(6, 1fr); /* Tạo 6 cột với kích thước đều nhau */
-    grid-gap: 1%; /* Khoảng cách giữa các cột là 1% */
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 1%;
     grid-auto-rows: calc(20% - 1%);
 }
 
 /* Grid Items */
 .grid-item {
-    position: relative; /* Để các phần tử con được định vị chính xác */
-    width: 100%; /* Đảm bảo rằng item chiếm đủ chiều rộng cột */
+    position: relative; 
+    width: 100%; 
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background: #f4f4f4;
     display: flex;
-    justify-content: center; /* Căn giữa nội dung bên trong */
-    align-items: center; /* Căn giữa nội dung bên trong */
+    justify-content: center; 
+    align-items: center; 
 }
 
 

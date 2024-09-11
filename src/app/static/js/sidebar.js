@@ -3,7 +3,7 @@ import {handleDateChange} from './date.js';
 import {updateImageOverlay, updateImageGrid, get_url} from './utils.js';
 import {handleKeyUp} from './object.js';
 import { sendAllBoxesToBackend, initializeCanvas , drawGrid} from './color.js';
-
+import {searchOCR, searchASR} from './OcrAsr.js'
 document.addEventListener("DOMContentLoaded", function() {
     const enterButton = document.getElementById('enter-btn');
     const frameIdCheckbox = document.getElementById('frame_id');
@@ -15,6 +15,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const objectClassInput = document.getElementById('object-class');
     const minInput = document.getElementById('object-class-min');
     const maxInput = document.getElementById('object-class-max');
+    const ocrText = document.getElementById('ocr')
+    const asrText = document.getElementById("asr")
+    const enterocr = document.getElementById('enter-ocr')
+    const enterasr = document.getElementById('enter-asr')
+    console.log("ocrText",ocrText, "asrText", asrText, "enterocr", enterocr)
     let currentChain = "";  // Store the selected hierarchical path
     initializeCanvas();
     // Attach event listener for hierarchical search
@@ -101,6 +106,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    enterocr.addEventListener('click', function() {
+        searchOCR(ocrText);
+    });
+    
+    enterasr.addEventListener('click', function() {
+        searchASR(asrText);
+    });
+    
     // Add event listeners to the date inputs
     startDayInput.addEventListener('change', () => handleDateChange(startDayInput, endDayInput));
     endDayInput.addEventListener('change', () => handleDateChange(startDayInput, endDayInput));

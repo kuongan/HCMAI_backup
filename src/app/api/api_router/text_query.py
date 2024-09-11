@@ -60,7 +60,7 @@ def handle_sidebar_data(data: SidebarData):
     if data.model == 'Clip':
         query = preprocessed_text
         vector = clip.embed_query(query)
-        result = faiss.search('clip', vector, 500)
+        result = faiss.search('clip', vector, 1000)
         # Remove 'distances' from each dictionary in the result
         result = remove_distances(result)
     else:

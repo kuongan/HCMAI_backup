@@ -9,6 +9,8 @@ from src.app.api.api_router.text_query import side_bars
 from src.app.api.api_router.search import search_api
 from src.app.api.api_router.color_search import router as color_router
 from src.app.api.api_router.object import router as od_router
+from src.app.api.api_router.OcrAsr import ocr_router 
+from src.app.api.api_router.OcrAsr import asr_router 
 # Define the base directory for the app folder
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -33,10 +35,12 @@ async def home(request: Request):
 app.include_router(date_router)
 app.include_router(color_router)
 app.include_router(od_router)
+app.include_router(ocr_router)
+app.include_router(asr_router)
 app.include_router(side_bars, prefix="/side-bar")
 app.include_router(search_api, prefix="/search")
 
-
+# uvicorn src.app.main:app --reload instead
 if __name__ == "__main__":
     # Run the FastAPI application using uvicorn with auto-reload enabled
     import uvicorn
