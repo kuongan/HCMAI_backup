@@ -109,8 +109,6 @@ function selectCategory(suggestion, path) {
 
     // Update the current chain of selected categories
     currentChain = path.trim() ? path + " > " + suggestion : suggestion;
-
-    // Display the current chain in the input field
     inputField.value = currentChain;
 
     // Automatically fetch subcategories for the new selection

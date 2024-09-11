@@ -164,3 +164,4 @@ cython_debug/
 # Ignore the image and metadata directories
 /src/app/static/image/
 /src/app/static/metadata/
+/src/app/static/data/faiss/
