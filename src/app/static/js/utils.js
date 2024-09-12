@@ -16,7 +16,7 @@ export function updateImageGrid(imageData) {
 
     imageData.forEach(data => {
         const gridItem = document.createElement('div');
-        console.log(data.url);
+
         gridItem.className = 'grid-item';
         gridItem.innerHTML = `
             <img src="${data.url }" alt="Image" width="100%" height="auto">
@@ -46,7 +46,6 @@ export function updateImageGrid(imageData) {
     cluster.innerHTML = ''; 
 
     // Cập nhật phần tử image-grid-cluster với các nhóm hình ảnh
-
     for (const videoId in groupedByVideoId) {
         const clusterItems = groupedByVideoId[videoId];
         const clusterGroup = document.createElement('div');
@@ -78,8 +77,9 @@ export function updateImageGrid(imageData) {
         cluster.appendChild(groupLabel);
     }
     updateImageOverlay(frameIdCheckbox.checked, videoIdCheckbox.checked, clusterCheckbox.checked)
-    grid.scrollTo({ top: 0, behavior: 'auto' }); 
-    cluster.scrollTo({ top: 0, behavior: 'auto' }); 
+    // Auto scroll to the top
+    grid.scrollTo({ top: 0, behavior: 'auto' });
+    cluster.scrollTo({ top: 0, behavior: 'auto' });
     handleExpandClick();
 }
 

@@ -7,7 +7,6 @@ body, html {
     padding:0px;
     font-family: Arial, sans-serif;
     box-sizing: border-box;
-
 }
 
 /* Container */
@@ -553,26 +552,36 @@ button#enter-od-btn:hover {
 /* Color Buttons Container */
 .color-buttons {
     position: absolute;
-    bottom: 1%;
-    top: 82.5%;
-    width: 25%;
-    height: 25%;
-    left: 1%;
+    height: fit-content;
+    bottom: 2%;
+    left: 2%;
     display: flex;
-    gap: 5%;
+    gap: 10%;
 }
 
 /* Individual Color Buttons */
 .color-button {
-    width: 50%;
-    height: 50%;
+    height: 0;
+    padding: 9px; 
     border-radius: 50%;
-    border: none;
+    border: 1px solid gray;
     cursor: pointer;
+    margin-left: 1px; 
 }
 
-.color-button.yellow {
-    background-color: yellow;
+input[type="checkbox"].color-button.yellow {
+    appearance: none; /* Xóa bỏ checkbox mặc định */
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0;
+}
+
+input[type="checkbox"].color-button.yellow:checked {
+    background-color: rgb(68, 189, 35); /* Màu nền khi checkbox được chọn */
+    position: relative;
+    content: '\2714'; /* Dấu check */
+    font-size: 10px;
+    color: white;
 }
 
 .color-button.red {
