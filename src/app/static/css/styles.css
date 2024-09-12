@@ -492,37 +492,38 @@ button#enter-od-btn:hover {
 
 #image-grid-cluster {
     display: grid;
+    grid-auto-flow: row;
     width: 80%;
     background-color: #f4f4f4;
     position: fixed;
     top: 8%;
     left: 19.5%; 
     height: 92%;
-    grid-template-rows: repeat(3, 1fr); /* 4 hàng */
     overflow-y: auto;
-    gap: 0.3%;
+    gap: 0.5%;
+    overflow-x: auto; 
 }
 
 
 .video_group {
     display: flex;
+    height: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-    white-space: nowrap; 
-    overflow-x: auto; 
-    gap: 1%;
+    white-space: normal; 
+    gap: 0.1%;
 }
 
 .cluster-group {
     display: flex;
-    gap: 0.005%; /* Khoảng cách giữa các phần tử */
+    gap: 0.005%; 
 }
 
 .cluster-item {
     position: relative;
-    width: 256px; /* Đặt chiều rộng cụ thể để các phần tử không co lại */
-    height: 128px; /* Chiều cao cố định */
+    width: 256px; 
+    height: 128px; 
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background: #f4f4f4;

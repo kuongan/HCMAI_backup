@@ -78,6 +78,8 @@ export function updateImageGrid(imageData) {
         cluster.appendChild(groupLabel);
     }
     updateImageOverlay(frameIdCheckbox.checked, videoIdCheckbox.checked, clusterCheckbox.checked)
+    grid.scrollTo({ top: 0, behavior: 'auto' }); 
+    cluster.scrollTo({ top: 0, behavior: 'auto' }); 
     handleExpandClick();
 }
 
