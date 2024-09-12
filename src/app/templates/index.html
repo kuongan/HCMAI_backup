@@ -20,6 +20,9 @@
             
             <!-- Task Grid -->
             {% include 'components/taskgrid.html' %}
+
+            <!-- Convert pop up -->
+            {% include 'components/convert_popup.html' %}
         </div>
     </div>
 </body>
@@ -27,5 +30,5 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script type="module" src="{{ url_for('static', path='js/sidebar.js') }}"></script>
 <script type="module" src="{{ url_for('static', path='js/topbar.js') }}"></script>
-<script type="module" src="{{ url_for('static', path='js/task-grid.js') }}"></script>
+<script type="module" src="{{ url_for('static', path='js/convert_popup.js') }}"></script>
 </html>
