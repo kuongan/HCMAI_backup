@@ -41,31 +41,6 @@ body, html {
     flex: 1; 
 }
 
-.task-selection {
-    display: flex;
-    gap: 20px;
-    justify-content: center; 
-    flex: 1; 
-}
-
-.task-btn {
-    background-color: #1CAEED; 
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-}
-
-.task-btn:hover {
-    background-color: #ffffff; 
-    color: #1CAEED;
-}
-
 .search-bar {
     flex: 1; 
     max-width: 300px; 
@@ -123,6 +98,26 @@ body, html {
     margin-bottom: 15px; /* Add space below the container */
     box-sizing: border-box;
 }
+
+.top-k-container {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 10px; /* Khoảng cách giữa label và input */
+}
+
+#text-query {
+    margin-top: 10px;
+    width: 100%; /* Để textarea chiếm toàn bộ chiều ngang */
+}
+
+#input-topk {
+    width: 30%; /* Điều chỉnh kích thước chiều ngang */
+    padding: 2px; /* Điều chỉnh khoảng cách bên trong */
+    font-size: 14px; /* Điều chỉnh kích thước chữ */
+    border-radius: 8px;
+}
+
+
 
 #text-query {
     width: 100%; /* Make sure the textarea fits the container */

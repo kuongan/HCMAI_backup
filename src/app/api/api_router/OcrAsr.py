@@ -8,6 +8,7 @@ asr_router = APIRouter()
 # Define request models using BaseModel
 class OCRRequest(BaseModel):
     ocr: str
+    topk: int
 
 class ASRRequest(BaseModel):
     asr: str

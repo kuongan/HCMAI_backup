@@ -15,6 +15,7 @@ side_bars = APIRouter()
 class SidebarData(BaseModel):
     model: str
     textQuery: str
+    topK: str
 
 # Initialize the components
 URL = []
@@ -39,6 +40,7 @@ def handle_sidebar_data(data: SidebarData):
     # You can access the data via the `data` variable
     print(f"Model: {data.model}")
     print(f"text_query: {data.textQuery}")
+    print(f"topK: {data.topK}")
 
     # Detect the language of the text
     detected_lang = detect(data.textQuery)
@@ -61,7 +63,7 @@ def handle_sidebar_data(data: SidebarData):
     if data.model == 'Clip':
         query = preprocessed_text
         vector = clip.embed_query(query)
-        result = faiss.search('clip', vector, 1000)
+        result = faiss.search('clip', vector, int(data.topK))
         # Remove 'distances' from each dictionary in the result
         result = remove_distances(result)
     else:

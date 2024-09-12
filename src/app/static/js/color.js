@@ -75,7 +75,7 @@ function makeCanvasDroppable() {
 }
 
 // Function to send all box details to the backend for encoding
-export function sendAllBoxesToBackend() {
+export function sendAllBoxesToBackend(topK) {
     const boxDetails = [];
     $(".draggable-box").each(function() {
         const box = $(this);
@@ -101,7 +101,8 @@ export function sendAllBoxesToBackend() {
             col: startCol,
             rows_covered: rowsCovered,
             cols_covered: colsCovered,
-            color: color
+            color: color, 
+            topk: topK,
         });
     });
 

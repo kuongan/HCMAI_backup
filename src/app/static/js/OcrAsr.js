@@ -1,9 +1,9 @@
 // Get the elements
 import { get_url, updateImageGrid } from './utils.js';
 // Function to handle the OCR search
-export async function searchOCR(ocrText) {
+export async function searchOCR(ocrText, topK) {
     const ocrValue = ocrText.value; // Get the value from the OCR text field
-    const payload = { ocr: ocrValue };
+    const payload = { ocr: ocrValue, topk: parseInt(topK) };
     console.log(ocrValue)
     try {
         // Make a fetch request to the /ocr route
@@ -35,9 +35,9 @@ export async function searchOCR(ocrText) {
 }
 
 // Function to handle the ASR search
-export async function searchASR(asrText) {
+export async function searchASR(asrText, topK) {
     const asrValue = asrText.value; // Get the value from the ASR text field
-    const payload = { asr: asrValue };
+    const payload = { asr: asrValue, topk: parseInt(topK)};
     console.log(asrValue)
     try {
         // Make a fetch request to the /ocr route

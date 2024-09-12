@@ -5,7 +5,11 @@
       <option value="Beit3">Beit3</option>
     </select>
     <div class="text-query-container">
-      <label for="text-query">Text Query</label>
+      <div class="top-k-container">
+        <label for="text-query">Text Query</label>
+        <label for="input-topk">Top K:</label>
+        <input type="number" placeholder="Top K" id="input-topk" value="1000">
+      </div>
       <textarea id="text-query" rows="4" cols="50"></textarea>
     </div>
     

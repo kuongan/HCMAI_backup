@@ -14,6 +14,7 @@ class ObjectSearchPayload(BaseModel):
     objectClass: str
     min: int
     max: int
+    topk: int
 
 # Load the JSON data function
 def load_data():
@@ -80,7 +81,7 @@ async def objectsearch(payload: ObjectSearchPayload):
             query=objectclass,
             min_count=min_count,
             max_count=max_count,
-            topk=100,
+            topk=payload.topk,
         )
         return JSONResponse(content={'data': search_results})
     else:
