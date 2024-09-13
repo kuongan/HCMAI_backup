@@ -32,6 +32,7 @@ class BoundingBox(BaseModel):
     rows_covered: int  # Number of rows the box spans
     cols_covered: int  # Number of columns the box spans
     color: str  # Color of the box
+    topk: int
 
 # Helper function to convert column letter ('a'-'g') to index
 def column_letter_to_index(letter: str) -> int:
@@ -65,7 +66,7 @@ async def encode_box(boxes: List[BoundingBox]):
         search_results = es.search_color(
             index_name='color_index',
             query=encoded_string,
-            topk=1500,
+            topk=bbox.topk,
         )
         # Assuming search_results is a list of dictionaries with frame_id, video_id, and position
         return JSONResponse(content={"data": search_results})

@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const enterasr = document.getElementById('enter-asr')
     console.log("ocrText",ocrText, "asrText", asrText, "enterocr", enterocr)
     const rerankButtons = document.querySelectorAll('.rerank-btn');
+    const topK = document.getElementById('input-topk').value
+
     let currentChain = "";  // Store the selected hierarchical path
     initializeCanvas();
     // Attach event listener for hierarchical search
@@ -47,7 +49,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const payload = {
             objectClass: deepestClass,  // Use the deepest class for search
             min: parseInt(min),
-            max: parseInt(max)
+            max: parseInt(max),
+            topK: parseInt(topK)
         };
         
         try {
@@ -77,11 +80,12 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     enterButton.addEventListener('click', async function() {
         const model = document.getElementById('model-select').value;
-        const textQuery = document.getElementById('text-query').value;
+        const textQuery = document.getElementById('text-query').value
 
         const payload = {
             model: model.toString(),
             textQuery: textQuery.toString(),
+            topK: topK.toString(),
         };
 
         try {
@@ -110,15 +114,15 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     enterocr.addEventListener('click', function() {
-        searchOCR(ocrText);
+        searchOCR(ocrText, topK);
     });
     
     enterasr.addEventListener('click', function() {
-        searchASR(asrText);
+        searchASR(asrText, topK);
     });
     
     // Add event listeners to the date inputs
-    startDayInput.addEventListener('change', () => handleDateChange(startDayInput, endDayInput));
+    startDayInput.addEventListener('change', () => handleDateChange(startDayInput, endDayInput, topK));
     endDayInput.addEventListener('change', () => handleDateChange(startDayInput, endDayInput));
 
     // Attach event listeners to the checkboxes to trigger updateImageOverlay when they change
@@ -153,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Check if there are any draggable boxes on the canvas
             if ($(".draggable-box").length > 0) {
                 console.log("Boxes found, sending box details to backend");
-                sendAllBoxesToBackend();
+                sendAllBoxesToBackend(topK);
             } else {
                 console.log("No boxes found on the canvas");
             }
