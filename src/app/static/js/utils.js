@@ -1,5 +1,5 @@
 import {handleExpandClick} from './expand_btn.js'
-
+import { handleSubmitButtonClick } from './submitbtn.js';
 export function get_url(frame_id, video_id, position) {
     const name = frame_id + "_" + video_id + "_" + position + ".jpg";
     const video = video_id.split("_")[0];
@@ -20,7 +20,7 @@ export function updateImageGrid(imageData) {
         gridItem.className = 'grid-item';
         gridItem.innerHTML = `
             <img src="${data.url }" alt="Image" width="100%" height="auto">
-            <button class="submit-button">Submit</button>
+            <button class="submit-button" data-video-id="${data.videoId}" data-frame-id="${data.frameId}">Submit</button>
             <div class="image-overlay">
                 <span class="frame-id-label">${data.frameId}</span>
                 <span class="video-id-label">${data.videoId}</span>
@@ -56,7 +56,7 @@ export function updateImageGrid(imageData) {
             clusterItem.className = 'cluster-item';
             clusterItem.innerHTML = `
                 <img src="${data.url }" alt="Image">
-                <button class="submit-button">Submit</button>
+                <button class="submit-button" data-video-id="${data.videoId}" data-frame-id="${data.frameId}">Submit</button>
                 <div class="image-overlay">
                     <span class="frame-id-label">${data.frameId}</span>
                     <span class="video-id-label">${data.videoId}</span>
@@ -81,6 +81,8 @@ export function updateImageGrid(imageData) {
     grid.scrollTo({ top: 0, behavior: 'auto' });
     cluster.scrollTo({ top: 0, behavior: 'auto' });
     handleExpandClick();
+    handleSubmitButtonClick();
+
 }
 
 export function updateImageOverlay(frameIdChecked, videoIdChecked, clusterChecked) {

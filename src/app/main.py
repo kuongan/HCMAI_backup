@@ -13,6 +13,7 @@ from src.app.api.api_router.OcrAsr import ocr_router
 from src.app.api.api_router.OcrAsr import asr_router 
 from src.app.api.api_router.rerank import router as rerank_router
 from src.app.api.api_router.expand_btn import router as expandBtn_router
+from src.app.api.api_router.submit import router as submit_router
 # Define the base directory for the app folder
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -41,6 +42,7 @@ app.include_router(ocr_router)
 app.include_router(asr_router)
 app.include_router(rerank_router)
 app.include_router(expandBtn_router)
+app.include_router(submit_router)
 app.include_router(side_bars, prefix="/side-bar")
 app.include_router(search_api, prefix="/search")
 

@@ -13,7 +13,7 @@ from pydantic import BaseModel
 router = APIRouter()
 
 # Đường dẫn tới thư mục chứa metadata JSON files
-METADATA_FOLDER = r'src\app\static\metadata'
+METADATA_FOLDER = os.path.join('src','app','static','metadata')
 
 
 class DateFilterRequest(BaseModel):

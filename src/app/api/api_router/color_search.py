@@ -65,7 +65,7 @@ async def encode_box(boxes: List[BoundingBox]):
         search_results = es.search_color(
             index_name='color_index',
             query=encoded_string,
-            topk=500,
+            topk=1500,
         )
         # Assuming search_results is a list of dictionaries with frame_id, video_id, and position
         return JSONResponse(content={"data": search_results})

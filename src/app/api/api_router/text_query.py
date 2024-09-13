@@ -2,7 +2,7 @@ from typing import List, Dict
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from src.domain.information_extraction.feature_extractor import clip  
+from src.domain.information_extraction.feature_extractor import clip
 from src.domain.search_engine.vector_database import FaissDatabase
 from src.common.query_processing import Translation, Text_Preprocessing
 from langdetect import detect
@@ -19,6 +19,7 @@ class SidebarData(BaseModel):
 # Initialize the components
 URL = []
 faiss = FaissDatabase()
+
 faiss.load_index('clip', r'src\app\static\data\faiss\clip.index')
 
 # Initialize translation and text preprocessing
@@ -65,6 +66,4 @@ def handle_sidebar_data(data: SidebarData):
         result = remove_distances(result)
     else:
         result = {"error": "Invalid model"}
-
-    print(result)
     return JSONResponse(content={"data": result})

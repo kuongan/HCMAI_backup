@@ -1,6 +1,6 @@
 export function handleExpandClick() {
-    const blueButtons = document.querySelectorAll('.color-button.blue');
-    blueButtons.forEach(function(btn) {
+    const redButtons = document.querySelectorAll('.color-button.red');
+    redButtons.forEach(function(btn) {
         btn.onclick = function () {
             // Lấy phần tử cha gần nhất của nút này là '.grid-item' hoặc '.cluster-item'
             const item = btn.closest('.grid-item') || btn.closest('.cluster-item');

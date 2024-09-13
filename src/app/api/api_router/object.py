@@ -3,11 +3,11 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import json
 from src.domain.search_engine.Elastic_search.elastic_search import es
-
+import os
 router = APIRouter()
 
 # Path to your hierarchical JSON data
-json_file_path = 'src/app/static/data/bbox_labels_600_hierarchy_with_names.json'
+json_file_path = os.path.join('src','app','static','data', 'bbox_labels_600_hierarchy_with_names.json')
 
 # Pydantic model for incoming search payload
 class ObjectSearchPayload(BaseModel):
