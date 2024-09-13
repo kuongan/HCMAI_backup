@@ -60,7 +60,7 @@ def handle_sidebar_data(data: SidebarData):
     print(f"Preprocessed text: {preprocessed_text}")
 
     # Handle the query based on the model
-    if data.model == 'Clip':
+    if data.model == 'Clip': ## Blip Clip Beit3
         query = preprocessed_text
         vector = clip.embed_query(query)
         result = faiss.search('clip', vector, int(data.topK))

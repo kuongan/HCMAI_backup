@@ -5,7 +5,7 @@ import {handleKeyUp} from './object.js';
 import { sendAllBoxesToBackend, initializeCanvas , drawGrid} from './color.js';
 import {searchOCR, searchASR} from './OcrAsr.js'
 import { handleRerankButtonClick} from './rerank.js';
-
+import {search} from './searchtop.js'
 document.addEventListener("DOMContentLoaded", function() {
     const enterButton = document.getElementById('enter-btn');
     const frameIdCheckbox = document.getElementById('frame_id');
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         try {
             // Send the payload to the backend for Elasticsearch search
-            const response = await fetch('/object', {
+            const response = await fetch('http://127.0.0.1:8000/object/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -174,6 +174,8 @@ document.addEventListener("DOMContentLoaded", function() {
     rerankButtons.forEach(function(button) {
         button.addEventListener('click', handleRerankButtonClick);
     });
+    // Lắng nghe sự kiện click của nút Search
+    document.getElementById('enter-search-btn').addEventListener('click', search);
     // Initial call to update overlay based on initial checkbox states
     updateImageOverlay(frameIdCheckbox, videoIdCheckbox, clusterCheckbox);
 
