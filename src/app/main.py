@@ -14,11 +14,21 @@ from src.app.api.api_router.OcrAsr import asr_router
 from src.app.api.api_router.rerank import router as rerank_router
 from src.app.api.api_router.expand_btn import router as expandBtn_router
 from src.app.api.api_router.submit import router as submit_router
+from src.app.api.api_router.find_prev_next_frame import router as find_prev_next_frame_router
+from fastapi.middleware.cors import CORSMiddleware
 # Define the base directory for the app folder
 BASE_DIR = Path(__file__).resolve().parent
 
 # Create the FastAPI app instance
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 # Mount static files (CSS, JS, images)
 static_dir = Path(BASE_DIR, "static")
@@ -45,7 +55,7 @@ app.include_router(expandBtn_router)
 app.include_router(submit_router)
 app.include_router(search_api)
 app.include_router(side_bars, prefix="/side-bar")
-
+app.include_router(find_prev_next_frame_router)
 
 # uvicorn src.app.main:app --reload instead
 if __name__ == "__main__":

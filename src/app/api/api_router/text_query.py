@@ -21,7 +21,7 @@ class SidebarData(BaseModel):
 URL = []
 faiss = FaissDatabase()
 
-faiss.load_index('clip', r'src\app\static\data\faiss\clip.index')
+faiss.load_index('clip', r'src/app/static/data/faiss/clip.index')
 
 # Initialize translation and text preprocessing
 trans = Translation(from_lang='vi', to_lang='en', mode='google')

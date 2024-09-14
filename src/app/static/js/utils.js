@@ -1,4 +1,5 @@
 import {handleExpandClick} from './expand_btn.js'
+import { handleModalClick } from './modal_btn.js';
 import { handleSubmitButtonClick } from './submitbtn.js';
 export function get_url(frame_id, video_id, position) {
     const name = frame_id + "_" + video_id + "_" + position + ".jpg";
@@ -32,6 +33,7 @@ export function updateImageGrid(imageData) {
             </div>
         `;
         grid.appendChild(gridItem);
+        
     });
 
     const groupedByVideoId = imageData.reduce((acc, item) => {
@@ -81,8 +83,8 @@ export function updateImageGrid(imageData) {
     grid.scrollTo({ top: 0, behavior: 'auto' });
     cluster.scrollTo({ top: 0, behavior: 'auto' });
     handleExpandClick();
+    handleModalClick();
     handleSubmitButtonClick();
-
 }
 
 export function updateImageOverlay(frameIdChecked, videoIdChecked, clusterChecked) {
