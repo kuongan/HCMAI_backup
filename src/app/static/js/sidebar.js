@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const asrText = document.getElementById("asr")
     const enterocr = document.getElementById('enter-ocr')
     const enterasr = document.getElementById('enter-asr')
-    console.log("ocrText",ocrText, "asrText", asrText, "enterocr", enterocr)
     const rerankButtons = document.querySelectorAll('.rerank-btn');
     const topK = document.getElementById('input-topk')
 
@@ -29,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
     initializeCanvas();
     // Attach event listener for hierarchical search
     objectClassInput.addEventListener('keyup', handleKeyUp);
-    // Handle search action when "enter" button is clicked
     enterod.addEventListener('click', async function() {
         const min = minInput.value;
         const max = maxInput.value;
@@ -50,12 +48,11 @@ document.addEventListener("DOMContentLoaded", function() {
             objectClass: deepestClass,  // Use the deepest class for search
             min: parseInt(min),
             max: parseInt(max),
-            topK: parseInt(topK.value)
+            topk: parseInt(topK.value)
         };
-        
         try {
             // Send the payload to the backend for Elasticsearch search
-            const response = await fetch('http://127.0.0.1:8000/object/', {
+            const response = await fetch('/object', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

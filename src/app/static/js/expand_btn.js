@@ -6,8 +6,6 @@ export function handleExpandClick() {
             const item = btn.closest('.grid-item') || btn.closest('.cluster-item');
             // Tìm uri của ảnh trong item
             const imgURI = item.querySelector('img').src;
-            console.log(imgURI)
-
             // gọi BE để tìm videoURL và frameID từ imageURI
             $.ajax({
                 url: 'http://127.0.0.1:8000/expandBtn/',
@@ -36,7 +34,5 @@ export function handleExpandClick() {
                 }
             });
         }
-
-        
     });
 }

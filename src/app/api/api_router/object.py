@@ -68,7 +68,7 @@ async def suggest(query: str = "", chain: str = ""):
     return JSONResponse(content=result_list)
 
 # Elasticsearch-based search endpoint for handling object class, min, and max
-@router.post("/object/")
+@router.post("/object")
 async def objectsearch(payload: ObjectSearchPayload):
     objectclass = payload.objectClass
     min_count = payload.min

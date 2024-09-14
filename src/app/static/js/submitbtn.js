@@ -10,8 +10,6 @@ export function handleSubmitButtonClick() {
             const videoId = this.getAttribute('data-video-id');
             const frameId = this.getAttribute('data-frame-id');
 
-            console.log('Video ID:', videoId, 'Frame ID:', frameId);  // Kiểm tra xem videoId và frameId có chính xác không
-
             // Hiển thị popup và overlay
             popupContainer.style.display = 'block';
             popupOverlay.style.display = 'block';
@@ -64,9 +62,6 @@ export function handleSubmitButtonClick() {
                 if (isQAEnabled && qaText) {
                     payload.qa = qaText; // Nếu QA được bật, thêm trường QA vào payload
                 }
-
-                console.log('Payload:', payload);  // Kiểm tra payload trước khi gửi
-
                 // Gửi payload dạng JSON
                 fetch('http://127.0.0.1:8000/save-csv', {
                     method: 'POST',
@@ -76,17 +71,14 @@ export function handleSubmitButtonClick() {
                     body: JSON.stringify(payload)
                 }).then(response => {
                     if (response.ok) {
-                        // Hiển thị alert khi thành công
-                        alert('Data added successfully!');
                         // Đặt lại form về trạng thái ban đầu
                         filenameInput.value = '';
                         qaCheckbox.checked = false;
-                        qaInputContainer.style.display = 'none';  // Ẩn trường QA Text nếu có
-                        qaTextInput.value = '';  // Reset QA Text
-
-                        // Đóng popup sau khi submit thành công
+                        qaInputContainer.style.display = 'none';  
+                        qaTextInput.value = '';  
                         popupContainer.style.display = 'none';
                         popupOverlay.style.display = 'none';
+                        
                     } else {
                         alert('Error saving data!');
                     }

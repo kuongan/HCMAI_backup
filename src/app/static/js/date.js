@@ -32,11 +32,7 @@ export function handleDateChange(startDayInput, endDayInput) {
             console.error("Task grid not found.");
             return;
         }
-
-        console.log("Task grid element:", taskGrid);
         const imageElements = taskGrid.querySelectorAll('.grid-item');
-        console.log("Image elements:", imageElements);
-
         const imageUrls = [];
         // Collect image URLs
         imageElements.forEach(item => {
@@ -66,7 +62,6 @@ export function handleDateChange(startDayInput, endDayInput) {
                 endDate: endDate.toISOString()
             }),
             success: function (response) {
-                console.log("Success:", response);
                 if (response.data) {
                     const imageUrls = response.data.map(item => ({
                         url: get_url(item.frame_id, item.video_id, item.position), 

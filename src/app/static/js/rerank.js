@@ -1,8 +1,6 @@
 import { get_url, updateImageGrid } from './utils.js'
 
 export function handleRerankButtonClick() {
-    console.log('Rerank button clicked!');
-
     // Lấy tất cả các nút màu vàng đã được check
     const likeButtons = document.querySelectorAll('.color-button.yellow:checked');
     const model = document.getElementById('model-select').value;
@@ -23,9 +21,6 @@ export function handleRerankButtonClick() {
             }
         }
     });
-
-    // Log ra danh sách các URL của các hình ảnh tương ứng với nút vàng đã check
-    console.log('Checked image URLs:', checkedImageUrls);
 
     // Call the backend to further process filtered images
     $.ajax({

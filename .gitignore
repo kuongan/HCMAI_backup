@@ -165,3 +165,4 @@ cython_debug/
 /src/app/static/image/
 /src/app/static/metadata/
 /src/app/static/data/faiss/
+/result/

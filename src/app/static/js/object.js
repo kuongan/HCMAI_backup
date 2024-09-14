@@ -3,10 +3,8 @@ let currentFocus = -1;  // Tracks the keyboard navigation index
 
 // Handle keyup events (typing and arrow key navigation)
 export function handleKeyUp(event) {
-    console.log("Keyup event triggered:", event); 
     const input = event.target.value;
     const suggestionsDiv = document.getElementById('suggestions');
-    console.log("Input Value:", input);
     // Handle arrow key navigation
     if (event.key === "ArrowDown") {
         currentFocus++;

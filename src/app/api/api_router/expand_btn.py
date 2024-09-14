@@ -18,13 +18,11 @@ class imageURL(BaseModel):
 
 @router.post('/expandBtn')
 async def filter_by_date(request: imageURL):
-    print(request.url)
     parts = request.url.split('/')
 
     # Lấy phần chứa 'L08_V018' và '19374'
     video_id = parts[6]  # 'L08_V018'
     frame_id = parts[7].split('_')[0]
-    print(video_id, frame_id)
 
     json_file = os.path.join(METADATA_FOLDER, f'{video_id}.json')
 

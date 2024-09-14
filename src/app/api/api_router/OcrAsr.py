@@ -12,6 +12,7 @@ class OCRRequest(BaseModel):
 
 class ASRRequest(BaseModel):
     asr: str
+    topk: int
 
 # Helper functions
 def remove_duplicates(data_list):
@@ -42,7 +43,7 @@ async def process_ocr(request: OCRRequest):
         search_results = es.search_ocr(
             index_name='ocr_index',
             query=ocr_text,
-            topk=1500
+            topk=request.topk
         )
     unique_results = remove_duplicates(search_results)
     formatted_results = format_frame_ids(unique_results)
@@ -58,7 +59,7 @@ async def process_asr(request: ASRRequest):
         search_results = es.search_asr(
             index_name='asr_index',
             query=asr_text,
-            topk=1500
+            topk=request.topk
         )
     unique_results = remove_duplicates(search_results)
     formatted_results = format_frame_ids(unique_results)

@@ -114,8 +114,6 @@ export function sendAllBoxesToBackend(topK) {
         contentType: 'application/json',
         data: JSON.stringify(boxDetails),
         success: function(response) {
-            console.log("Search Results:", response.data);
-
             // Assuming response.data contains the image information
             const imageUrls = response.data.map(item => ({
                 url: get_url(item.frame_id, item.video_id, item.position),
