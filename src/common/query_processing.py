@@ -30,7 +30,7 @@ class Translation():
             raise ValueError("Invalid mode. Choose either 'google' or 'translate'.")
 
 class Text_Preprocessing():
-    def __init__(self, stopwords_path=r'src\app\static\data\vietnamese-stopwords-dash.txt'):
+    def __init__(self, stopwords_path=r'src/app/static/data/vietnamese-stopwords-dash.txt'):
         with open(stopwords_path, 'rb') as f:
             lines = f.readlines()
         self.stop_words = [line.decode('utf8').replace('\n','') for line in lines]
