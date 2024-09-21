@@ -7,6 +7,9 @@ from src.domain.search_engine.vector_database import FaissDatabase
 from src.common.query_processing import Translation, Text_Preprocessing
 from langdetect import detect
 from deep_translator import GoogleTranslator
+from googletrans import Translator
+
+import time
 
 # Define the router
 side_bars = APIRouter()
@@ -24,7 +27,9 @@ faiss = FaissDatabase()
 faiss.load_index('clip', r'src/app/static/data/faiss/clip.index')
 
 # Initialize translation and text preprocessing
-trans = Translation(from_lang='vi', to_lang='en', mode='google')
+# trans = Translation(from_lang='vi', to_lang='en', mode='google') #DeepTranslator
+GGtranslator = Translator() #Google Trans
+
 text_preprocessor = Text_Preprocessing()
 
 def remove_distances(result: List[Dict]) -> List[Dict]:
@@ -42,22 +47,27 @@ def handle_sidebar_data(data: SidebarData):
     print(f"text_query: {data.textQuery}")
     print(f"topK: {data.topK}")
 
+    start = time.time() 
     # Detect the language of the text
     detected_lang = detect(data.textQuery)
     print(f"Detected language: {detected_lang}")
 
     # Translate if the detected language is Vietnamese
+    detectTime = time.time() 
     if detected_lang == 'vi':
         print("Translating from Vietnamese to English...")
-        translated_text = GoogleTranslator(source='vi', target='en').translate(data.textQuery)
+        # translated_text = GoogleTranslator(source='vi', target='en').translate(data.textQuery)
+        translated_text = GGtranslator.translate(str(data.textQuery), src="vi", dest="en").text
         print(f"Translated text: {translated_text}")
     else:
         # If not Vietnamese, use the original text
         translated_text = data.textQuery
 
     # Preprocess the text
+    translateTime = time.time() 
     preprocessed_text = text_preprocessor(translated_text)
     print(f"Preprocessed text: {preprocessed_text}")
+    preprocessingTime = time.time() 
 
     # Handle the query based on the model
     if data.model == 'Clip': ## Blip Clip Beit3
@@ -68,4 +78,11 @@ def handle_sidebar_data(data: SidebarData):
         result = remove_distances(result)
     else:
         result = {"error": "Invalid model"}
+    queryTime = time.time() 
+
+    print('Detect Language Time:',detectTime - start)
+    print('Translate Time:', translateTime - detectTime)
+    print('Preprocessing Time:', preprocessingTime - translateTime)
+    print('Query Time:', queryTime - preprocessingTime)
+
     return JSONResponse(content={"data": result})
