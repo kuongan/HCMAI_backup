@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import pandas as pd
 
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
@@ -12,6 +13,7 @@ router = APIRouter()
 
 # Đường dẫn tới thư mục chứa metadata JSON files
 METADATA_FOLDER = os.path.join('src','app','static','metadata')
+MAP_KEYFRAMES_FOLDER = os.path.join('src', 'app', 'static', 'map-keyframes')
 
 class imageURL(BaseModel):
     url: str  # This expects 'urls', not 'images'
@@ -25,17 +27,23 @@ async def filter_by_date(request: imageURL):
     frame_id = parts[7].split('_')[0]
 
     json_file = os.path.join(METADATA_FOLDER, f'{video_id}.json')
+    mapkeyframes_file = os.path.join(MAP_KEYFRAMES_FOLDER, f'{video_id}.csv')
 
+    #Lấy URL từ file json
     with open(json_file, encoding='utf-8') as file:
         metadata = json.load(file)
-
     video_url = metadata.get('watch_url')
+
+    #Lấy fps từ file csv
+    csv_file = pd.read_csv(mapkeyframes_file)
+    fps = csv_file.loc[0,'fps'] 
 
     return JSONResponse(
         content={
             'frameId': frame_id, 
             'videoURL': video_url,
-            'videoId': video_id
+            'videoId': video_id,
+            'fps': fps
         },
         status_code=200,
     )
