@@ -167,3 +167,6 @@ cython_debug/
 /src/app/static/data/faiss/
 /result/
 data.csv
+/DeepSpeed-0.8.3/
+/src/app/static/map-keyframes/
+/unilm/
