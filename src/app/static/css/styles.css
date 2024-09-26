@@ -802,6 +802,14 @@ input[type="checkbox"].color-button.yellow:checked {
     max-width: 800px;
 }
 
+.image-info {
+    font-size: 12px; /* Kích thước nhỏ hơn */
+    color: #666; /* Màu chữ xám */
+    text-align: center; /* Canh giữa */
+    margin-bottom: 5px; /* Khoảng cách với hình chính */
+}
+
+
 .close {
     color: #aaa;
     float: right;
