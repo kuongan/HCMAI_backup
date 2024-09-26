@@ -30,12 +30,16 @@ window.onclick = function(event) {
 document.getElementById('convertBtn').onclick = function() {
     const minutes = parseInt(document.getElementById('minutes').value) || 0;
     const seconds = parseInt(document.getElementById('seconds').value) || 0;
+    
+    // Lấy FPS từ của video
+    const fpsContent = document.getElementById('fps').textContent
+    const fpsValue = parseFloat(fpsContent.replace("FPS: ", ""));
 
     // Tính tổng thời gian bằng cách chuyển phút sang giây và cộng với số giây nhập vào
     const totalTimeInSeconds = (minutes * 60) + seconds;
 
-    // Giả sử tốc độ khung hình là 25 khung hình trên giây
-    const frameId = Math.floor(totalTimeInSeconds * 25);
+    // Giả sử tốc độ khung hình là fps khung hình trên giây
+    const frameId = Math.floor(totalTimeInSeconds * fpsValue);
 
     // Hiển thị kết quả
     document.getElementById('frameId').textContent = `FrameId: ${frameId}`;
