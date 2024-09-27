@@ -22,17 +22,167 @@
     </div>
 </div>
 
+<div id="popup-overlay" class="popup-overlay" style="display:none;">
+</div>
 <div class="popup-submit" id="popup-container" style="display:none;">
     <h3>Submit Data</h3>
-    <label for="filename">File name:</label>
-    <textarea id="filename" placeholder="Enter file name"></textarea><br>
-    <input type="checkbox" id="qa-checkbox"> QA<br>
-    <div id="qa-input-container" style="display:none;">
-        <label for="qa-text">QA Text:</label>
-        <input type="text" id="qa-text" placeholder="Enter QA text"><br>
+    <div id="popup-submit">
+        <!-- Row 1: question-id and select -->
+        <div class="row">
+                <label>Question-id:</label>
+                <input type="text" id="question-id" placeholder="question-id" />
+                <select name="type-query" id="QA">
+                    <option value="QA">question</option>
+                    <option value="Non-QA">non-question</option>
+                </select>
+        </div>
+
+        <!-- Row 2: video-id -->
+        <div class="row">
+            <label>Video-id:</label>
+            <input type="text" id="video-id" placeholder="video-id" readonly/>
+        </div>
+
+        <!-- Row 3: frame input and slider -->
+        <div class="row frame-row">
+            <label>Frame-id:</label>
+            <input type="text" id="frame-id" placeholder="frame" readonly/>
+            <div id="slider"></div>
+            <!-- Display values of the slider handles -->
+            <div class="slider-values-frame">
+                <span id="min-frame-value-display">20</span> - 
+                <span id="max-frame-value-display">80</span>
+            </div>
+            <input type="number" id="min-value-frame" placeholder="Min" />
+            <input type="number" id="max-value-frame" placeholder="Max" />
+        </div>
+
+        <!-- Row 4: quantity input and slider -->
+        <div class="row quantity-row">
+            <label>Quantity:</label>
+            <div id="slider-quantity"></div>
+            <!-- Display values of the slider handles -->
+            <div class="slider-values-quantity">
+                <span id="min-quantity-value-display">30</span> - 
+                <span id="max-quantity-value-display">80</span>
+            </div>
+            <input type="number" id="min-value-quantity" placeholder="Min" />
+            <input type="number" id="max-value-quantity" placeholder="Max" />
+        </div>
+
+        <!-- Row 5: Number-random -->
+        <div class="row">
+            <label>Number-random:</label>
+            <input type="number" id="Number-random" placeholder="Number-random" />
+        </div>
     </div>
-    <button id="confirm-submit">Submit</button>
+
+    <!-- Button row -->
+    <div class="row button-row">
+        <button id="insert" value="insert">Insert</button>
+        <button id="random" value="random">Random</button>
+        <button id="cancel" value="cancel">Cancel</button>
+    </div>
 </div>
 
-<!-- Nền mờ -->
-<div id="popup-overlay" class="popup-overlay" style="display:none;"></div>
+<div id="small-popup-container" class="small-popup" style="display:none;">
+    <label for="small-text-input">Input Text:</label>
+    <input type="text" id="small-text-input" placeholder="Enter some text" />
+    <div class="small-popup-button">
+        <button id="small-popup-close">Close</button>
+        <button id="small-popup-save">Save</button>
+    </div>
+</div>
+
+
+<script>
+ // Frame slider// Frame slider
+// Frame slider
+var slider = document.getElementById('slider');
+var minFrameInput = document.getElementById('min-value-frame');
+var maxFrameInput = document.getElementById('max-value-frame');
+var minFrameDisplay = document.getElementById('min-frame-value-display');
+var maxFrameDisplay = document.getElementById('max-frame-value-display');
+noUiSlider.create(slider, {
+    start: [20, 80],
+    connect: true,
+    range: {
+        'min': 0,
+        'max': 100
+    }
+});
+
+// Cập nhật giá trị hiển thị dưới thanh trượt khi giá trị của thanh trượt thay đổi
+slider.noUiSlider.on('update', function(values, handle) {
+    if (handle === 0) {
+        minFrameDisplay.textContent = Math.round(values[0]);
+    } else {
+        maxFrameDisplay.textContent = Math.round(values[1]);
+    }
+});
+
+// Function to update the range dynamically
+function updateFrameRange() {
+    var min = parseInt(minFrameInput.value) || 0;
+    var max = parseInt(maxFrameInput.value) || 100;
+
+    slider.noUiSlider.updateOptions({
+        range: {
+            'min': min,
+            'max': max
+        }
+    });
+
+    // Reset the slider position after updating the range
+    slider.noUiSlider.set([min, max]);
+}
+
+// Add event listeners to the min and max input fields for the frame slider
+minFrameInput.addEventListener('change', updateFrameRange);
+maxFrameInput.addEventListener('change', updateFrameRange);
+
+// Quantity slider
+var slider_quantity = document.getElementById('slider-quantity');
+var minQuantityInput = document.getElementById('min-value-quantity');
+var maxQuantityInput = document.getElementById('max-value-quantity');
+var minQuantityDisplay = document.getElementById('min-quantity-value-display');
+var maxQuantityDisplay = document.getElementById('max-quantity-value-display');
+
+noUiSlider.create(slider_quantity, {
+    start: [21, 80],
+    connect: true,
+    range: {
+        'min': 0,
+        'max': 100
+    }
+});
+
+slider_quantity.noUiSlider.on('update', function(values, handle) {
+    if (handle === 0) {
+        minQuantityDisplay.textContent = Math.round(values[0]);
+    } else {
+        maxQuantityDisplay.textContent = Math.round(values[1]);
+    }
+});
+
+// Function to update the range dynamically for the quantity slider
+function updateQuantityRange() {
+    var min = parseInt(minQuantityInput.value) || 0;
+    var max = parseInt(maxQuantityInput.value) || 100;
+
+    slider_quantity.noUiSlider.updateOptions({
+        range: {
+            'min': min,
+            'max': max
+        }
+    });
+
+    // Reset the slider position after updating the range
+    slider_quantity.noUiSlider.set([min, max]);
+}
+
+// Add event listeners to the min and max input fields for the quantity slider
+minQuantityInput.addEventListener('change', updateQuantityRange);
+maxQuantityInput.addEventListener('change', updateQuantityRange);
+
+</script>
