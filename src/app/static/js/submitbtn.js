@@ -2,7 +2,6 @@ export function handleSubmitButtonClick() {
     const submitButtons = document.querySelectorAll('.submit-button');
     const popupContainer = document.getElementById('popup-container');
     const popupOverlay = document.getElementById('popup-overlay');
-    const confirmSubmitButton = popupContainer.querySelector('#confirm-submit');
     const cancel = document.getElementById('cancel');
     const Frame_id = document.getElementById('frame-id');
     const Video_id = document.getElementById('video-id');
@@ -12,14 +11,10 @@ export function handleSubmitButtonClick() {
     const qaTypeSelect = document.getElementById('QA');
     const minValueFrameInput = document.getElementById('min-value-frame');
     const maxValueFrameInput = document.getElementById('max-value-frame');
-    const minValueQuantityInput = document.getElementById('min-value-quantity');
-    const maxValueQuantityInput = document.getElementById('max-value-quantity');
     const numberRandomInput = document.getElementById('Number-random');
-    const minQuantityDisplay = document.getElementById('min-quantity-value-display');
-    const maxQuantityDisplay = document.getElementById('max-quantity-value-display');
     const minFrameDisplay = document.getElementById('min-frame-value-display');
     const maxFrameDisplay = document.getElementById('max-frame-value-display');
-
+    const Quantity = document.getElementById('Quantity');
     submitButtons.forEach(button => {
         button.addEventListener('click', function () {
             const videoId = this.getAttribute('data-video-id');
@@ -47,8 +42,7 @@ export function handleSubmitButtonClick() {
             qaType: qaTypeSelect.value,
             minFrameValue: minFrameDisplay.textContent,
             maxFrameValue: maxFrameDisplay.textContent,
-            minQuantityValue: minQuantityDisplay.textContent,
-            maxQuantityValue: maxQuantityDisplay.textContent,
+            Quantity:Quantity.value,
             randomNumber: numberRandomInput.value,
         };
 
@@ -64,8 +58,7 @@ export function handleSubmitButtonClick() {
                 questionIdInput.value = ''; 
                 minValueFrameInput.value = ''; 
                 maxValueFrameInput.value = ''; 
-                minValueQuantityInput.value = ''; 
-                maxValueQuantityInput.value = ''; 
+                Quantity.value = '';
                 numberRandomInput.value = ''; 
                 popupContainer.style.display = 'none';
                 popupOverlay.style.display = 'none';
@@ -97,6 +90,7 @@ export function handleSubmitButtonClick() {
         let payload = {
             questionId: questionIdInput.value.trim(),
             text: text_small.value,
+            qaType: qaTypeSelect.value,
         };
 
         // Gửi payload dạng JSON

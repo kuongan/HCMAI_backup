@@ -14,14 +14,10 @@
             <div class="info-item">
                 <p id="videoId" class="value"></p>
             </div>
-            <div class="info-item"></div>
-                <p id="fps" class="value"></p>
-            </div>
 
         </div>
     </div>
 </div>
-
 <div id="popup-overlay" class="popup-overlay" style="display:none;">
 </div>
 <div class="popup-submit" id="popup-container" style="display:none;">
@@ -58,16 +54,9 @@
         </div>
 
         <!-- Row 4: quantity input and slider -->
-        <div class="row quantity-row">
+        <div class="row">
             <label>Quantity:</label>
-            <div id="slider-quantity"></div>
-            <!-- Display values of the slider handles -->
-            <div class="slider-values-quantity">
-                <span id="min-quantity-value-display">30</span> - 
-                <span id="max-quantity-value-display">80</span>
-            </div>
-            <input type="number" id="min-value-quantity" placeholder="Min" />
-            <input type="number" id="max-value-quantity" placeholder="Max" />
+            <input type="text" id="Quantity" placeholder="Quantity" />
         </div>
 
         <!-- Row 5: Number-random -->
@@ -140,49 +129,5 @@ function updateFrameRange() {
 // Add event listeners to the min and max input fields for the frame slider
 minFrameInput.addEventListener('change', updateFrameRange);
 maxFrameInput.addEventListener('change', updateFrameRange);
-
-// Quantity slider
-var slider_quantity = document.getElementById('slider-quantity');
-var minQuantityInput = document.getElementById('min-value-quantity');
-var maxQuantityInput = document.getElementById('max-value-quantity');
-var minQuantityDisplay = document.getElementById('min-quantity-value-display');
-var maxQuantityDisplay = document.getElementById('max-quantity-value-display');
-
-noUiSlider.create(slider_quantity, {
-    start: [21, 80],
-    connect: true,
-    range: {
-        'min': 0,
-        'max': 100
-    }
-});
-
-slider_quantity.noUiSlider.on('update', function(values, handle) {
-    if (handle === 0) {
-        minQuantityDisplay.textContent = Math.round(values[0]);
-    } else {
-        maxQuantityDisplay.textContent = Math.round(values[1]);
-    }
-});
-
-// Function to update the range dynamically for the quantity slider
-function updateQuantityRange() {
-    var min = parseInt(minQuantityInput.value) || 0;
-    var max = parseInt(maxQuantityInput.value) || 100;
-
-    slider_quantity.noUiSlider.updateOptions({
-        range: {
-            'min': min,
-            'max': max
-        }
-    });
-
-    // Reset the slider position after updating the range
-    slider_quantity.noUiSlider.set([min, max]);
-}
-
-// Add event listeners to the min and max input fields for the quantity slider
-minQuantityInput.addEventListener('change', updateQuantityRange);
-maxQuantityInput.addEventListener('change', updateQuantityRange);
 
 </script>

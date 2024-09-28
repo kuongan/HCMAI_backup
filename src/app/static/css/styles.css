@@ -767,13 +767,13 @@ input[type="number"]{
 }
 
 /* Slider and min/max frame inputs */
-.frame-row, .quantity-row {
+.frame-row{
     margin-left: 1%;
     display: flex;
     align-items: center;
 }
 
-#slider, #slider-quantity {
+#slider {
     flex-grow: 1;
     height: 4px;
     background-color: #ddd;
