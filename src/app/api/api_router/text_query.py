@@ -6,7 +6,6 @@ from src.domain.information_extraction.feature_extractor import clip
 from src.domain.search_engine.vector_database import FaissDatabase
 from src.common.query_processing import Translation, Text_Preprocessing
 from langdetect import detect
-from deep_translator import GoogleTranslator
 from googletrans import Translator
 
 import time
@@ -27,7 +26,6 @@ faiss = FaissDatabase()
 faiss.load_index('clip', r'src/app/static/data/faiss/clip.index')
 
 # Initialize translation and text preprocessing
-# trans = Translation(from_lang='vi', to_lang='en', mode='google') #DeepTranslator
 GGtranslator = Translator() #Google Trans
 
 text_preprocessor = Text_Preprocessing()

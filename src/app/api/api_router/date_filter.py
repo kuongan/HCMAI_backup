@@ -22,25 +22,21 @@ class DateFilterRequest(BaseModel):
     endDate: str | None = None
 
 
-def parse_url(url: str) -> dict | None:
+def parse_url(url: str):
     parts = url.split('/')
     filename = parts[-1]
-
-    # Sử dụng regex để lấy các thành phần
-    match = re.match(r'(\d+)_L01_V(\d+)_([a-z]+)\.jpg', filename)
+    match = re.match(r'(\d+)_L(\d+)_V(\d+)_(\w+)\.jpg', filename)
     if match:
-        frame_id = match.group(1)
-        video_id = f'L01_V{match.group(2)}'
-        position = match.group(3)
+        frame_id = match.group(1)  # 013
+        video_id = f'L{match.group(2)}_V{match.group(3)}'  # L11_V020
+        position = match.group(4)  # mid
         return {
             'frame_id': frame_id,
             'video_id': video_id,
-            'position': position,
+            'position': position
         }
     return None
-
-
-def convert_urls(urls: list[str]) -> list[dict | None]:
+def convert_urls(urls):
     return [
         parse_url(url) for url in urls
         if parse_url(url) is not None

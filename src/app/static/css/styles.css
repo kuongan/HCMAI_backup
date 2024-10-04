@@ -719,22 +719,127 @@ input[type="checkbox"].color-button.yellow:checked {
 }
 
 /* CSS cho popup */
+/* Style for the popup container */
 .popup-submit {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
-    background-color: white;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
     padding: 20px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1001;  
-    border-radius: 8px;
-    width: 300px;  
+    z-index: 1001;
+    border-radius: 10px;
+    width: 400px;
     text-align: center;
-    display: none; 
+    border: 1px solid #ccc;
+    display:none;
 }
 
-/* Nền mờ phía sau popup */
+/* Style for the frame and video information */
+.frame_infor {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.frame_infor label {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.frame_infor input {
+    width: 100px;
+    border: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Style for ID query and rank */
+/* Container for ID query, rank, and question checkbox */
+.id-rank-check-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;  /* Spread the elements evenly */
+    margin-bottom: 10px;
+}
+
+/* Ensure all elements are aligned properly */
+.id-query-submit, .rank-submit, .question-type {
+    display: flex;
+    align-items: center;
+}
+
+/* Labels aligned with inputs */
+.id-query-submit label, .rank-submit label, .question-type label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* Fix width of inputs and ensure proper spacing */
+.id-query-submit input, .rank-submit input {
+    width: 30px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Ensure checkbox is aligned and has consistent size */
+.question-type input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    padding: 6px;
+}
+
+/* Style for the answer, min, and max input fields */
+.answer-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    display: 'none';
+}
+
+.answer-group label {
+    padding: 6px;
+    margin-right: 5px;
+    font-weight: bold;
+    display: 'none';
+}
+
+.answer-group input[type="text"],
+.answer-group input[type="number"] {
+    width: 50px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style for buttons */
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 20px;
+    
+}
+
+.buttons button {
+    width: 25%;
+    padding: 10px;
+    background-color: #00aaff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.buttons button:hover {
+    background-color: #0088cc;
+}
+
+
+/* Background overlay when popup is active */
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -743,41 +848,74 @@ input[type="checkbox"].color-button.yellow:checked {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);  
     z-index: 1000; 
-    display: none;  /* Ẩn lớp overlay ban đầu */
+    display: none; /* Initially hidden */
 }
 
-/* Style cho các phần tử bên trong popup */
-.popup-submit h3 {
-    font-size: 20px;
+/* General styling for the popup */
+.popup-view-submit {
+    display:none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1002;
+    overflow: hidden;
+}
+
+/* Popup header for title and close button */
+.popup-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Close button */
+#close-popup-btn {
+    background-color: #ff5f5f;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute; /* Position the button in the top right corner */
+    right: 10px;
+    transform: translateY(-50%); /* Vertically center the button */
+}
+
+#close-popup-btn:hover {
+    background-color: #e74c3c;
+}
+#view-file-textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    border-radius: 5px;
+    resize: none;
     margin-bottom: 15px;
 }
 
-.popup-submit textarea,
-.popup-submit input[type="text"] {
-    width: 90%;
+#save-popup-btn {
+    width: 100%;
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.popup-submit button {
-    padding: 10px 15px;
-    background-color: #224398; /* Màu nền của nút */
+    background-color: #3498db;
     color: white;
     border: none;
-    border-radius: 4px;
+    font-size: 16px;
+    border-radius: 5px;
     cursor: pointer;
-}
-
-.popup-submit button:hover {
-    background-color: #1b367a;  /* Thay đổi màu khi hover */
-}
-
-/* QA input container chỉ hiển thị khi checkbox QA được chọn */
-#qa-input-container {
-    display: none;
+    margin-top: 15px;
 }
 
 

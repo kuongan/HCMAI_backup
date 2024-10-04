@@ -22,17 +22,51 @@
     </div>
 </div>
 
-<div class="popup-submit" id="popup-container" style="display:none;">
-    <h3>Submit Data</h3>
-    <label for="filename">File name:</label>
-    <textarea id="filename" placeholder="Enter file name"></textarea><br>
-    <input type="checkbox" id="qa-checkbox"> QA<br>
-    <div id="qa-input-container" style="display:none;">
-        <label for="qa-text">QA Text:</label>
-        <input type="text" id="qa-text" placeholder="Enter QA text"><br>
+<div class="popup-submit" id="popup-container">
+    <div class="frame_infor" >
+        <label>Frame_id: </label>
+        <input type="text" id="frame-id" placeholder="frame" readonly/>
+        <label>Video_id: </label>
+        <input type="text" id="video-id" placeholder="video-id" readonly/>
     </div>
-    <button id="confirm-submit">Submit</button>
-</div>
+    <div class="id-rank-check-container">
+        <div class="id-query-submit">
+            <label for="query-id">ID of query:</label>
+            <input type="number" id="query-id" value="1">
+        </div>
 
-<!-- Nền mờ -->
+        <div class='rank-submit'>
+            <label for="rank">Rank:</label>
+            <input type="number" id="rank" min="1" max="25" value="1">
+        </div>
+
+        <div class='question-type'>
+            <input type="checkbox" id="question-check">
+            <label for="question-check">Question</label>
+        </div>
+    </div>
+    <div class="answer-group">
+        <label for="answer">Answer:</label>
+        <input type="text" id="answer">
+        <br>
+        <label for="min">Min:</label>
+        <input type="number" id="min-submit">
+        <label for="max">Max:</label>
+        <input type="number" id="max-submit">
+    </div>
+
+    <div class="buttons">
+        <button id="add-btn">Add</button>
+        <button id="view-file-btn">View file</button>
+    </div>
+</div>
+<!-- View Popup -->
+<div id="view-popup" class="popup-view-submit">
+    <div class="popup-view-header">
+        <span>ID of query: <span id="query-id-header"></span></span>
+        <button class="close-btn" id="close-popup-btn">X</button>
+    </div>
+    <textarea id="view-file-textarea"></textarea>
+    <button id="save-popup-btn">Save</button>
+</div>
 <div id="popup-overlay" class="popup-overlay" style="display:none;"></div>
