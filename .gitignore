@@ -170,6 +170,7 @@ data.csv
 <<<<<<< Updated upstream
 /DeepSpeed-0.8.3/
 /src/app/static/map-keyframes/
+/src/app/static/data/
 /unilm/
 =======
 /src/app/static/map-keyframes

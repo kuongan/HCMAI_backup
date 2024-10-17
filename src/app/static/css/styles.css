@@ -128,7 +128,14 @@ body, html {
     margin-top: 10px;
     width: 100%; /* Để textarea chiếm toàn bộ chiều ngang */
 }
-
+#text-query-1{
+    margin-top: 10px;
+    width: 100%; /* Để textarea chiếm toàn bộ chiều ngang */
+}
+#additional-queries {
+    margin-top: 10px;
+    width: 100%;
+  }
 #input-topk {
     width: 30%; /* Điều chỉnh kích thước chiều ngang */
     padding: 2px; /* Điều chỉnh khoảng cách bên trong */

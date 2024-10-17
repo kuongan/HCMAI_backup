@@ -24,6 +24,108 @@ document.addEventListener("DOMContentLoaded", function() {
     const rerankButtons = document.querySelectorAll('.rerank-btn');
     const topK = document.getElementById('input-topk')
 
+    // Sự kiện khi checkbox được thay đổi (tạo hoặc xóa Text Query 2)
+    document.getElementById("query-checkbox").addEventListener("change", function() {
+        const isChecked = this.checked;
+
+        // Kiểm tra nếu checkbox được bật, thì tạo query 2
+        if (isChecked) {
+            // Kiểm tra nếu đã tồn tại một phần tử text-query nào đó thì không tạo thêm
+            if (document.getElementById('query-container-1')) {
+                return; // Nếu đã tồn tại, không tạo thêm
+            }
+
+            // Create a new div to contain the label and textarea
+            const newContainer = document.createElement('div');
+            newContainer.id = 'query-container-1'; // Chỉ có một container với id cố định
+
+            // Create a sub-container to hold the label
+            const labelRemoveContainer = document.createElement('div');
+            labelRemoveContainer.style.display = 'flex'; // Use flexbox to align label and button
+            labelRemoveContainer.style.alignItems = 'center'; // Align items vertically in the center
+
+            // Create the label for new text query
+            const newLabel = document.createElement('label');
+            newLabel.setAttribute('for', 'text-query-1');
+            newLabel.textContent = 'Text Query 2'; // Chỉ tạo text query 2
+
+            // Create the textarea for new text query with unique id
+            const newTextArea = document.createElement('textarea');
+            newTextArea.id = 'text-query-1'; // Assign fixed unique id
+            newTextArea.rows = '4';
+            newTextArea.cols = '50';
+            newTextArea.placeholder = 'Enter your text query';
+
+            // Append label to the labelRemoveContainer
+            labelRemoveContainer.appendChild(newLabel);
+
+            // Append the labelRemoveContainer and textarea to the newContainer
+            newContainer.appendChild(labelRemoveContainer);
+            newContainer.appendChild(newTextArea);
+
+            // Append the newContainer to the additional-queries div
+            document.getElementById('additional-queries').appendChild(newContainer);
+        } else {
+            // Nếu checkbox không được bật, ẩn và xóa Text Query 2 nếu tồn tại
+            const queryContainer = document.getElementById('query-container-1');
+            if (queryContainer) {
+                queryContainer.remove();
+            }
+        }
+    });
+
+    // Sự kiện khi nhấn "Enter"
+    enterButton.addEventListener('click', async function() {
+        const model = document.getElementById('model-select').value;
+        const topK = document.getElementById('input-topk').value;
+        const mainTextQuery = document.getElementById('text-query').value;
+
+        // Initialize queries object and add the main query first
+        const textQuery = {};
+        textQuery[0] = { id: 0, query: mainTextQuery };
+
+        // Kiểm tra sự tồn tại của Text Query 2 (nếu checkbox đã bật)
+        const textArea2 = document.getElementById('text-query-1');
+        if (textArea2 && textArea2.value.trim() !== '') {
+            textQuery[1] = { id: 1, query: textArea2.value };
+        }
+
+        // Log the number of text queries and their values
+        console.log("Number of Text Queries:", Object.keys(textQuery).length);
+        console.log("Text Queries:", textQuery);
+
+        const payload = {
+            model: model.toString(),
+            textQuery: textQuery,  // textQuery là object chứa các {id, query}
+            topK: topK.toString(),
+        };
+
+        try {
+            const response = await fetch('/side-bar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log("Response data:", data);
+                const imageUrls = data.data.map(item => ({
+                    url: get_url(item.frame_id, item.video_id, item.position),
+                    frameId: item.frame_id,
+                    videoId: item.video_id
+                }));
+                updateImageGrid(imageUrls);
+            } else {
+                console.error('Response not OK:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+
     let currentChain = "";  // Store the selected hierarchical path
     initializeCanvas();
     // Attach event listener for hierarchical search
@@ -53,39 +155,6 @@ document.addEventListener("DOMContentLoaded", function() {
         try {
             // Send the payload to the backend for Elasticsearch search
             const response = await fetch('/object', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload)
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                const imageUrls = data.data.map(item => ({
-                    url: get_url(item.frame_id, item.video_id, item.position),
-                    frameId: item.frame_id,
-                    videoId: item.video_id
-                }));
-                updateImageGrid(imageUrls);
-            } else {
-                console.error('Response not OK:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    });
-    enterButton.addEventListener('click', async function() {
-        const model = document.getElementById('model-select').value;
-        const textQuery = document.getElementById('text-query').value
-        const payload = {
-            model: model.toString(),
-            textQuery: textQuery.toString(),
-            topK: topK.value.toString(),
-        };
-
-        try {
-            const response = await fetch('/side-bar', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
