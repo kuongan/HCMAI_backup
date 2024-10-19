@@ -5,9 +5,12 @@ import {handleKeyUp} from './object.js';
 import { sendAllBoxesToBackend, initializeCanvas , drawGrid} from './color.js';
 import {searchOCR, searchASR} from './OcrAsr.js'
 import { handleRerankButtonClick} from './rerank.js';
-import {search} from './searchtop.js'
+import { search } from './searchtop.js'
+import { handleUpload } from './image-query.js';
+
 document.addEventListener("DOMContentLoaded", function() {
     const enterButton = document.getElementById('enter-btn');
+    const uploadButton = document.getElementById('upload-btn');
     const frameIdCheckbox = document.getElementById('frame_id');
     const videoIdCheckbox = document.getElementById('video_id');
     const clusterCheckbox = document.getElementById('cluster');
@@ -245,10 +248,10 @@ document.addEventListener("DOMContentLoaded", function() {
     rerankButtons.forEach(function(button) {
         button.addEventListener('click', handleRerankButtonClick);
     });
+
+    uploadButton.addEventListener('click', handleUpload)
     // Lắng nghe sự kiện click của nút Search
     document.getElementById('enter-search-btn').addEventListener('click', search);
     // Initial call to update overlay based on initial checkbox states
     updateImageOverlay(frameIdCheckbox, videoIdCheckbox, clusterCheckbox);
-
 });
-
