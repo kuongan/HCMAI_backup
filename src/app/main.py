@@ -12,6 +12,7 @@ from src.app.api.api_router.object import router as od_router
 from src.app.api.api_router.OcrAsr import ocr_router 
 from src.app.api.api_router.OcrAsr import asr_router 
 from src.app.api.api_router.rerank import router as rerank_router
+from src.app.api.api_router.image_query import router as image_query_router
 from src.app.api.api_router.expand_btn import router as expandBtn_router
 from src.app.api.api_router.submit import router as submit_router
 from src.app.api.api_router.find_prev_next_frame import router as find_prev_next_frame_router
@@ -51,6 +52,7 @@ app.include_router(od_router)
 app.include_router(ocr_router)
 app.include_router(asr_router)
 app.include_router(rerank_router)
+app.include_router(image_query_router)
 app.include_router(expandBtn_router)
 app.include_router(submit_router)
 app.include_router(search_api)
