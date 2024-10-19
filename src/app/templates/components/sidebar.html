@@ -15,6 +15,13 @@
         <label for="query-checkbox">Add text</label>
         <input type="checkbox" id="prompt-checkbox">
         <label for="prompt-checkbox">Gemini</label>
+    <div>
+      <button id="recordButton">Ghi âm</button>
+      <audio id="audioPlayback" controls style="display: none"></audio>
+      <button id="sendAudioToBackendButton" style="display: none">
+        Gửi file ghi âm này sang phía backend
+      </button>
+    </div>
     </div>
       <textarea id="text-query" rows="4" cols="50"></textarea>
       <div id="additional-queries"></div>

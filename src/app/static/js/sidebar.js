@@ -8,6 +8,8 @@ import { handleRerankButtonClick} from './rerank.js';
 import { search } from './searchtop.js'
 import { handleUpload } from './image-query.js';
 
+import { sendAudioToBackend } from './records.js';
+
 document.addEventListener("DOMContentLoaded", function() {
     const enterButton = document.getElementById('enter-btn');
     const uploadButton = document.getElementById('upload-btn');
@@ -25,7 +27,59 @@ document.addEventListener("DOMContentLoaded", function() {
     const enterocr = document.getElementById('enter-ocr')
     const enterasr = document.getElementById('enter-asr')
     const rerankButtons = document.querySelectorAll('.rerank-btn');
-    const topK = document.getElementById('input-topk')
+    const topK = document.getElementById('input-topk');
+    let mediaRecorder;
+    let audioChunks = [];
+    let audioBlob;
+
+    const recordButton = document.getElementById("recordButton");
+    const sendAudioToBackendButton = document.getElementById("sendAudioToBackendButton")
+    console.log('recordButton', recordButton)
+    window.onload = function() {
+        recordButton.addEventListener("click", async () => {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+              alert("Trình duyệt của bạn không hỗ trợ ghi âm.");
+              return;
+            }
+          
+            const stream = await navigator.mediaDevices.getUserMedia({
+              audio: true,
+            });
+            mediaRecorder = new MediaRecorder(stream);
+          
+            mediaRecorder.start();
+            recordButton.textContent = "Dừng ghi âm";
+          
+            mediaRecorder.ondataavailable = (event) => {
+              audioChunks.push(event.data);
+            };
+          
+            mediaRecorder.onstop = () => {
+              audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+              const audioUrl = URL.createObjectURL(audioBlob);
+              audioPlayback.src = audioUrl;
+          
+              sendAudioToBackendButton.style.display = "block"; // Hiện nút gửi file sang backend
+              audioChunks = [];
+              recordButton.textContent = "Bắt đầu ghi âm";
+            };
+          
+            recordButton.onclick = () => {
+              mediaRecorder.stop();
+            };
+          });
+    }
+     
+      
+      sendAudioToBackendButton.addEventListener("click", async () => {
+        if (audioBlob) {
+          const data = await sendAudioToBackend(audioBlob);
+            console.log("data from sidebar", data);
+            document.getElementById('text-query').value = data.transcription;
+        } else {
+          alert("Không có file ghi âm để gửi.");
+        }
+      });
     // Sự kiện khi checkbox được thay đổi (tạo hoặc xóa Text Query 2)
     document.getElementById("query-checkbox").addEventListener("change", function() {
         const isChecked = this.checked;
@@ -129,6 +183,10 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 console.error('Response not OK:', response.statusText);
             }
+            document.getElementById('recordButton').textContent = 'Ghi âm';
+            document.getElementById('sendAudioToBackendButton').style.display = 'none';
+            document.getElementById('audioPlayback').src = '';
+
         } catch (error) {
             console.error('Error:', error);
         }
