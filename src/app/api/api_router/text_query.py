@@ -7,6 +7,10 @@ from src.domain.search_engine.vector_database import FaissDatabase
 from src.common.query_processing import Text_Preprocessing
 from langdetect import detect
 from googletrans import Translator
+import google.generativeai as genai
+from src.app.api.api_router.prompt import REWRITE_PROMPT, INSTRUCTION_PROMPT
+from dotenv import load_dotenv
+load_dotenv()
 
 import time
 
@@ -22,6 +26,7 @@ class SidebarData(BaseModel):
     model: str
     textQuery: Dict[int, TextQueryItem]  # Dictionary với key là id và value là TextQueryItem
     topK: str
+    gemini: bool
 
 # Function to compute harmonic distance
 def harmonic(distance1: float, distance2: float, alpha: float = 1.0) -> float:
@@ -86,13 +91,15 @@ def process_queries(query1_result: List[Dict], query2_result: List[Dict] = None,
     # Trả về danh sách các phần tử dưới dạng list[dict]
     return results_with_harmonic
 
-# Initialize the components
-faiss = FaissDatabase()
-faiss.load_index('clip', r'src/app/static/data/faiss/clip.index')
-
-# Initialize translation and text preprocessing
-translator = Translator()  # Google Translate
-text_preprocessor = Text_Preprocessing()
+# Function to optimize the prompt
+def optimize_prompt(model, input_query: str) -> str:
+    """Tối ưu câu query bằng Google Gemini."""
+    final_prompt = REWRITE_PROMPT.format(keywords=input_query)
+    response = model.generate_content(final_prompt)
+    
+    # Lấy kết quả và trả về câu query được tối ưu
+    optimized_query = response.text
+    return optimized_query
 
 # Function to remove 'distances' field from each result
 def remove_distances(result: List[Dict]) -> List[Dict]:
@@ -106,11 +113,27 @@ def remove_distances(result: List[Dict]) -> List[Dict]:
             print("Item is not a dict:", item)
     return cleaned_result
 
+
+# Initialize the components
+faiss = FaissDatabase()
+faiss.load_index('clip', r'src/app/static/data/faiss/clip.index')
+
+# Initialize translation and text preprocessing
+translator = Translator()  # Google Translate
+text_preprocessor = Text_Preprocessing()
+
+model = genai.GenerativeModel(
+    model_name='gemini-1.5-flash',
+    system_instruction=INSTRUCTION_PROMPT
+)
+
+
 # Main API route to handle the sidebar data
 @side_bars.post('/')
 def handle_sidebar_data(data: SidebarData):
     print(f"Model: {data.model}")
     print(f"topK: {data.topK}")
+    print(f"Gemini optimization enabled: {data.gemini}")  # Kiểm tra trạng thái gemini
 
     start = time.time()
 
@@ -118,20 +141,29 @@ def handle_sidebar_data(data: SidebarData):
     translated_queries = {}
     for item in data.textQuery.values():
         print(f"Processing Query ID {item.id}: {item.query}")
-
+        
+        # Kiểm tra nếu gemini = True thì optimize query, ngược lại giữ nguyên query gốc
+        if data.gemini:
+            # Nếu checkbox được bật, tối ưu hóa câu query
+            prompt_query = optimize_prompt(model, item.query)
+            print(f"Optimized query for Query ID {item.id}: {prompt_query}")
+        else:
+            # Nếu không tối ưu, sử dụng query gốc
+            prompt_query = item.query
+            print(f"Original query for Query ID {item.id}: {prompt_query}")
         # Detect the language of the text
-        detected_lang = detect(item.query)
+        detected_lang = detect(prompt_query)
         print(f"Detected language for Query ID {item.id}: {detected_lang}")
 
         # Translate if the detected language is Vietnamese
         if detected_lang == 'vi':
             print(f"Translating Query ID {item.id} from Vietnamese to English...")
-            translated_text = translator.translate(str(item.query), src="vi", dest="en").text
+            translated_text = translator.translate(str(prompt_query), src="vi", dest="en").text
             print(f"Translated text for Query ID {item.id}: {translated_text}")
         else:
             # If not Vietnamese, use the original text
-            translated_text = item.query
-
+            translated_text = prompt_query
+        print(prompt_query)
         # Preprocess the text
         preprocessed_text = text_preprocessor(translated_text)
         translated_queries[item.id] = preprocessed_text

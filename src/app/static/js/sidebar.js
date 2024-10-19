@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const enterasr = document.getElementById('enter-asr')
     const rerankButtons = document.querySelectorAll('.rerank-btn');
     const topK = document.getElementById('input-topk')
-
     // Sự kiện khi checkbox được thay đổi (tạo hoặc xóa Text Query 2)
     document.getElementById("query-checkbox").addEventListener("change", function() {
         const isChecked = this.checked;
@@ -75,10 +74,14 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Sự kiện khi nhấn "Enter"
+    // Sự kiện khi nhấn "Enter"
     enterButton.addEventListener('click', async function() {
         const model = document.getElementById('model-select').value;
         const topK = document.getElementById('input-topk').value;
         const mainTextQuery = document.getElementById('text-query').value;
+        
+        // Kiểm tra trạng thái của prompt-checkbox (Gemini)
+        const gemini = document.getElementById('prompt-checkbox').checked;
 
         // Initialize queries object and add the main query first
         const textQuery = {};
@@ -94,10 +97,12 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("Number of Text Queries:", Object.keys(textQuery).length);
         console.log("Text Queries:", textQuery);
 
+        // Tạo payload và thêm gemini vào payload
         const payload = {
             model: model.toString(),
             textQuery: textQuery,  // textQuery là object chứa các {id, query}
             topK: topK.toString(),
+            gemini: gemini  // Thêm giá trị gemini bool để kiểm tra trạng thái checkbox
         };
 
         try {
@@ -125,6 +130,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error('Error:', error);
         }
     });
+
 
     let currentChain = "";  // Store the selected hierarchical path
     initializeCanvas();

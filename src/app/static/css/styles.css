@@ -111,6 +111,22 @@ body, html {
     border: 1px solid #ccc;
     border-radius: 20px;
 }
+.checkbox-container {
+    display: flex;
+    align-items: center; /* Căn giữa checkbox và nhãn theo trục dọc */
+    gap: 15px; /* Tạo khoảng cách giữa các cặp checkbox và nhãn */
+}
+
+.checkbox-container label {
+    margin-right: 10px; /* Tạo khoảng cách giữa checkbox và nhãn tương ứng */
+    margin-bottom: 0px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 5px; /* Khoảng cách nhỏ giữa checkbox và nhãn */
+    padding: 5px; /* Thêm padding để căn chỉnh tốt hơn */
+}
+
 
 .text-query-container {
     width: 100%; /* Ensure the container takes up the full width of the sidebar */
